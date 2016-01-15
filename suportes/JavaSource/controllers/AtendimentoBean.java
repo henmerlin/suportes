@@ -52,11 +52,10 @@ public class AtendimentoBean{
 		return this.atendimento;
 	}
 	
-	public String finalizar(){
+	public void finalizar(){
 		
 		JSFUtil.addInfoMessage("Atendimento encerrado!");
-		
-		return "atendimento.jsf";
+
 	}
 	
 	

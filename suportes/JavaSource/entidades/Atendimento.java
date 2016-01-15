@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -29,6 +30,7 @@ public class Atendimento {
 	private String autorizacao;
 
 	@OneToOne
+	@NotNull
 	private Motivo motivo;
 
 	private String observacao;

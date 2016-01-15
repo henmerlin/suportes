@@ -10,6 +10,13 @@
 		</h1>
 
 		<script>
+
+			$(document).ready(function(){ 
+
+				$("#infoAtendente").hide();
+            	$('#infoAtendente\\:formularioMotivo').hide();
+				
+			});
 		
 			function consultaOperador(){
 				
@@ -110,7 +117,7 @@ legend {
 	font-size: 13px;
 }
 
-label{
+label {
 	all: none;
 }
 </style>
@@ -125,9 +132,7 @@ label{
 						value="#{atendimentoBean.atendimento.colaborador}"
 						style="margin-right: 10px;" />
 					<p:commandButton id="teste" value="Buscar" update="@form"
-						onclick="consultaOperador()" icon="ui-icon-search">
-						<f:ajax render="myName" execute="name" />
-					</p:commandButton>
+						onclick="consultaOperador()" icon="ui-icon-search" />
 					<p:message for="name" />
 				</h:panelGrid>
 			</h:form>
@@ -135,13 +140,13 @@ label{
 		</p:panel>
 
 
-		<h:form id="infoAtendente" style="display: none;">
+		<h:form id="infoAtendente" name="infoAtendente" style="display: none;">
 
 			<p:inputText id="matriculaAtendente" name="matriculaAtendente"
 				value="#{atendimentoBean.atendimento.colaborador}"
 				style="display: none;" />
 			<p:fieldset legend="Informações do Atendente" toggleable="true"
-				toggleSpeed="500" style="float: left; width: 45%;">
+				toggleSpeed="500" style="float: left; width: 60%;">
 				<p:panelGrid columns="2"
 					style="margin-bottom: 10px; font-size: 12px;">
 					<h:outputText value="Nome:" />
@@ -161,7 +166,7 @@ label{
 
 
 			<p:fieldset legend="Uso Efika" toggleable="false" toggleSpeed="500"
-				style="width: 50%; font-size: 12px; float: right; margin-bottom: 15px;">
+				style="width: 35%; font-size: 12px; float: right; margin-bottom: 15px;">
 				<h:panelGrid>
 					<p:panel header="Materiais" style="width: 100%;">
 						<h:outputText id="materiais" />
@@ -174,64 +179,83 @@ label{
 
 
 
-			<p:fieldset legend="Atendimento" toggleable="false" toggleSpeed="500"
-				style="float: left; width: 45%; margin-top: 15px;">
-
+			<p:fieldset id="atendimento" legend="Atendimento" toggleable="false"
+				toggleSpeed="500" style="float: left; width: 60%; margin-top: 15px;">
 
 				<p:commandButton action="#{atendimentoBean.iniciar()}"
 					icon="ui-icon-play" id="iniciar" onclick="iniciarAtendimento();" />
 
 
-				<h:panelGrid columns="3" cellpadding="100" cellspacing="010" id="formularioMotivo" style="display: none;">
+				<h:panelGrid columns="3" cellpadding="100" cellspacing="010"
+					id="formularioMotivo">
 
 
 					<h:outputLabel for="n0" value="Instância: " />
-					<p:inputMask id="n0" mask="9999999999" value="#{atendimentoBean.atendimento.instancia}"/>
+					<p:inputMask id="n0" mask="9999999999"
+						value="#{atendimentoBean.atendimento.instancia}" />
 					<p:message for="n0" />
 
 
 					<h:outputLabel for="n1" value="Ordem: " />
-			        <p:selectOneButton id="n1" value="#{atendimentoBean.atendimento.ordem}">
-			            <f:selectItem itemLabel="BA" itemValue="BA" />
-			            <f:selectItem itemLabel="TT" itemValue="TT" />
-			        </p:selectOneButton>
-        			<p:message for="n1" />
+					<p:selectOneButton id="n1"
+						value="#{atendimentoBean.atendimento.ordem}">
+						<f:selectItem itemLabel="BA" itemValue="BA" />
+						<f:selectItem itemLabel="TT" itemValue="TT" />
+					</p:selectOneButton>
+					<p:message for="n1" />
 
 
 					<h:outputLabel for="n3" value="Tecnologia: " />
-					<p:selectOneMenu id="n3" converter="omnifaces.SelectItemsConverter" value="#{tecnologiaBean.tecnologia}" style="width: 150px;">
+					<p:selectOneMenu id="n3" converter="omnifaces.SelectItemsConverter"
+						value="#{tecnologiaBean.tecnologia}" style="width: 150px;">
 						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
 						<f:selectItems value="#{tecnologiaBean.listar()}" var="tecnologia"
 							itemLabel="#{tecnologia.nome}" itemValue="#{tecnologia}" />
-						<p:ajax event="valueChange" update="n2" listener="#{tecnologiaBean.listarMotivos(tecnologiaBean.tecnologia)}"/>
+						<p:ajax event="valueChange" update="n2"
+							listener="#{tecnologiaBean.listarMotivos(tecnologiaBean.tecnologia)}" />
 					</p:selectOneMenu>
 					<p:message for="n3" />
 
 
 					<h:outputLabel for="n2" value="Motivo: " />
-					<p:selectOneMenu id="n2"  filter="true" converter="omnifaces.SelectItemsConverter" value="#{atendimentoBean.atendimento.motivo}" style="width: 150px;">
+					<p:selectOneMenu id="n2" filter="true"
+						converter="omnifaces.SelectItemsConverter"
+						value="#{atendimentoBean.atendimento.motivo}"
+						style="width: 150px;">
 						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-						<f:selectItems value="#{tecnologiaBean.tecnologia.motivos}" var="motivo"
-							itemLabel="#{motivo.nome}" itemValue="#{motivo}" />
+						<f:selectItems value="#{tecnologiaBean.tecnologia.motivos}"
+							var="motivo" itemLabel="#{motivo.nome}" itemValue="#{motivo}" />
 					</p:selectOneMenu>
 					<p:message for="n2" />
 
 
+					<h:outputLabel value="Causa:" />
 
+					<p:panelGrid>
 
+						<p:fieldset>
 
+							<p:selectBooleanCheckbox value="#{selectBooleanView.value2}" />
+							<h:outputText value=" Acesso" />
+							<br />
 
+							<p:selectBooleanCheckbox value="#{selectBooleanView.value2}" />
+							<h:outputText value=" Não aderiu às ferramentas" />
+							<br />
 
+						</p:fieldset>
 
+						<p:row style="margin-top: 20px; text-align: left;">
+							<p:column colspan="3">
+								<p:commandButton action="#{atendimentoBean.finalizar()}"
+									value="Finalizar!" update="formularioMotivo"/>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
 
 				</h:panelGrid>
 
 			</p:fieldset>
-
-
-
-
-
 		</h:form>
 
 	</ui:define>

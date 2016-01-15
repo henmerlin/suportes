@@ -43,8 +43,6 @@ public class TecnologiaServico {
 		} catch (Exception e) {
 			return null;
 		}
-		
-
 	}
 
 	@SuppressWarnings("unchecked")
