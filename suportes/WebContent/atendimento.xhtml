@@ -12,8 +12,14 @@
 		<script>
 		
 			function consultaOperador(){
+				
+				$("#infoAtendente").hide();
 
 				var login = $("#formColab\\:name").val();
+				
+				$("#infoAtendente\\:matriculaAtendente").val(login);
+				
+				
 
                 $.ajax({ 
                     type: 'GET',
@@ -83,11 +89,13 @@
                     	});
 
 						$("#infoAtendente\\:materiais").html(comandos);
-                    	
+
+						$("#infoAtendente").show();
+						
                     }
                 });
 
-
+				
                 
             }
 
@@ -119,10 +127,15 @@ legend {
 		</p:panel>
 
 
-		<h:form id="infoAtendente">
+		<h:form id="infoAtendente" style="display: none;">
 
-			<p:fieldset legend="Informações do Atendente" toggleable="true" toggleSpeed="500" style="float: left; width: 45%;">
-				<p:panelGrid columns="2" style="margin-bottom: 10px; font-size: 12px;">
+			<p:inputText id="matriculaAtendente" name="matriculaAtendente"
+				value="#{atendimentoBean.atendimento.colaborador}"
+				style="display: none;" />
+			<p:fieldset legend="Informações do Atendente" toggleable="true"
+				toggleSpeed="500" style="float: left; width: 45%;">
+				<p:panelGrid columns="2"
+					style="margin-bottom: 10px; font-size: 12px;">
 					<h:outputText value="Nome:" />
 					<h:outputText id="nome_colab" />
 
@@ -139,18 +152,35 @@ legend {
 			</p:fieldset>
 
 
-			<p:fieldset legend="Uso Efika" toggleable="true" toggleSpeed="500" style="width: 50%; font-size: 12px; float: right; margin-bottom: 15px;">
+			<p:fieldset legend="Uso Efika" toggleable="false" toggleSpeed="500"
+				style="width: 50%; font-size: 12px; float: right; margin-bottom: 15px;">
 				<h:panelGrid>
-					<p:panel header="Comandos">
-						<h:outputText id="comandos" />
-					</p:panel>
-
-					<p:panel header="Materiais">
+					<p:panel header="Materiais" style="width: 100%;">
 						<h:outputText id="materiais" />
 					</p:panel>
-
+					<p:panel header="Comandos" style="width: 100%;">
+						<h:outputText id="comandos" />
+					</p:panel>
 				</h:panelGrid>
 			</p:fieldset>
+
+
+
+			<p:fieldset legend="Atendimento" toggleable="false" toggleSpeed="500"
+				style="float: left; width: 45%; margin-top: 15px;">
+				<h:panelGrid columns="2">
+
+					<p:commandButton action="#{atendimentoBean.iniciar()}"
+						icon="ui-icon-play" />
+
+
+				</h:panelGrid>
+
+			</p:fieldset>
+
+
+
+
 
 		</h:form>
 

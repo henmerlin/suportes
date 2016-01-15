@@ -1,11 +1,9 @@
 package entidades;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Atendimento {
@@ -14,14 +12,13 @@ public class Atendimento {
 	@GeneratedValue
 	private Integer Id;
 
-	@NotEmpty
 	private String tecnico;
 	
-	@NotEmpty
 	private String colaborador;
 
-	@NotEmpty
 	private String autorizacao;
+	
+	private Motivo motivo;
 
 	private Date inicio;
 
@@ -30,6 +27,14 @@ public class Atendimento {
 
 	public Atendimento() {
 
+	}
+
+	public Motivo getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(Motivo motivo) {
+		this.motivo = motivo;
 	}
 
 	public String getAutorizacao() {
@@ -52,16 +57,13 @@ public class Atendimento {
 		return Id;
 	}
 
-
 	public void setId(Integer id) {
 		Id = id;
 	}
 
-
 	public String getTecnico() {
 		return tecnico;
 	}
-
 
 	public void setTecnico(String tecnico) {
 		this.tecnico = tecnico;
@@ -71,7 +73,6 @@ public class Atendimento {
 		return inicio;
 	}
 
-
 	public void setInicio(Date inicio) {
 		this.inicio = inicio;
 	}
@@ -80,7 +81,6 @@ public class Atendimento {
 	public Date getFim() {
 		return fim;
 	}
-
 
 	public void setFim(Date fim) {
 		this.fim = fim;

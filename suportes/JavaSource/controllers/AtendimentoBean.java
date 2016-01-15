@@ -1,11 +1,14 @@
 package controllers;
 
 
+import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import entidades.Atendimento;
 import model.AtendimentoServico;
+import util.JSFUtil;
 
 @Named
 @RequestScoped
@@ -32,6 +35,28 @@ public class AtendimentoBean{
 	public String consultaOperador(){
 
 		return "window.location = 'infoOperador.jsf'";
+	}
+	
+	public Atendimento iniciar(){
+		
+		
+		
+		try {
+			this.atendimento.setInicio(new Date());
+			this.servicoAtendimento.iniciar(this.atendimento);
+			JSFUtil.addInfoMessage("Atendimento iniciado!");
+		} catch (Exception e) {
+			
+		}
+		
+		return this.atendimento;
+	}
+	
+	public String finalizar(){
+		
+		JSFUtil.addInfoMessage("Atendimento encerrado!");
+		
+		return "atendimento.jsf";
 	}
 	
 	
