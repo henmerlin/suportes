@@ -18,13 +18,11 @@
 				var login = $("#formColab\\:name").val();
 				
 				$("#infoAtendente\\:matriculaAtendente").val(login);
-				
-				
 
                 $.ajax({ 
                     type: 'GET',
                     data: 
-                    'login=' +  login,                                  
+                    'login=' +  login,
                     url:  'http://efika/web/services/colaborador/',
                     dataType: 'xml',
                     success: function(xml){
@@ -49,8 +47,8 @@
                 $.ajax({ 
                     type: 'GET',
                     data: 
-                    'login=' +  login,                                  
-                    url:  'http://efika/web/services/comandos/',
+                    'login=' +  login,
+                    url:  'http://efika/web/services/comandos/?max=5',
                     dataType: 'xml',
                     success: function(xml){
 
@@ -73,8 +71,8 @@
                 $.ajax({ 
                     type: 'GET',
                     data: 
-                    'login=' +  login,                                  
-                    url:  'http://efika/web/services/materiais/',
+                    "login=" +  login,
+                    url:  'http://efika/web/services/materiais/?max=5',
                     dataType: 'xml',
                     success: function(xml){
 
@@ -99,11 +97,21 @@
                 
             }
 
+            function iniciarAtendimento() {
+                
+            	$('#infoAtendente\\:iniciar').hide();
+            	$('#infoAtendente\\:formularioMotivo').show();
+			}
+
 		</script>
 
 		<style type="text/css">
 legend {
 	font-size: 13px;
+}
+
+label{
+	all: none;
 }
 </style>
 
@@ -168,10 +176,51 @@ legend {
 
 			<p:fieldset legend="Atendimento" toggleable="false" toggleSpeed="500"
 				style="float: left; width: 45%; margin-top: 15px;">
-				<h:panelGrid columns="2">
 
-					<p:commandButton action="#{atendimentoBean.iniciar()}"
-						icon="ui-icon-play" />
+
+				<p:commandButton action="#{atendimentoBean.iniciar()}"
+					icon="ui-icon-play" id="iniciar" onclick="iniciarAtendimento();" />
+
+
+				<h:panelGrid columns="3" id="formularioMotivo" style="display: none; padding-bottom: 15px;">
+
+
+					<p:outputLabel for="n0" value="Instância: " />
+					<p:inputMask id="n0" mask="9999999999" value="#{atendimentoBean.atendimento.instancia}"/>
+					<p:message for="n0" />
+
+
+					<p:outputLabel for="n1" value="Ordem: " />
+			        <p:selectOneButton id="n1" value="#{atendimentoBean.atendimento.ordem}">
+			            <f:selectItem itemLabel="BA" itemValue="BA" />
+			            <f:selectItem itemLabel="TT" itemValue="TT" />
+			        </p:selectOneButton>
+        			<p:message for="n1" />
+
+
+					<p:outputLabel for="n3" value="Motivo: " />
+					<p:selectOneMenu id="n3"  filter="true" converter="omnifaces.SelectItemsConverter" value="#{atendimentoBean.atendimento.motivo}">
+						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
+						<f:selectItems value="#{tecnologiaBean.listar()}" var="tecnologia"
+							itemLabel="#{tecnologia.nome}" itemValue="#{tecnologia}" />
+					</p:selectOneMenu>
+					<p:message for="n3" />
+
+
+					<p:outputLabel for="n2" value="Motivo: " />
+					<p:selectOneMenu id="n2"  filter="true" converter="omnifaces.SelectItemsConverter" value="#{atendimentoBean.atendimento.motivo}">
+						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
+						<f:selectItems value="#{motivoBean.listar()}" var="motivo"
+							itemLabel="#{motivo.nome}" itemValue="#{motivo}" />
+					</p:selectOneMenu>
+					<p:message for="n2" />
+
+
+
+
+
+
+
 
 
 				</h:panelGrid>

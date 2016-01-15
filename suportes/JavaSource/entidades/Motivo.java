@@ -5,6 +5,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Motivo{
@@ -13,8 +16,10 @@ public class Motivo{
 	@GeneratedValue
 	private Integer Id;
 	
+	@NotEmpty
 	private String nome;
 	
+	@NotNull
 	@ManyToOne(fetch=FetchType.EAGER)
 	private Tecnologia tecnologia;
 

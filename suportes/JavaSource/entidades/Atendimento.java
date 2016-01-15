@@ -4,6 +4,9 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Atendimento {
@@ -13,12 +16,22 @@ public class Atendimento {
 	private Integer Id;
 
 	private String tecnico;
-	
+
+	@NotEmpty
 	private String colaborador;
 
+	@NotEmpty
+	private String instancia;
+
+	@NotEmpty
+	private String ordem;
+
 	private String autorizacao;
-	
+
+	@OneToOne
 	private Motivo motivo;
+
+	private String observacao;
 
 	private Date inicio;
 
@@ -28,6 +41,43 @@ public class Atendimento {
 	public Atendimento() {
 
 	}
+
+
+
+	public String getInstancia() {
+		return instancia;
+	}
+
+
+
+	public void setInstancia(String instancia) {
+		this.instancia = instancia;
+	}
+
+
+
+	public String getOrdem() {
+		return ordem;
+	}
+
+
+	public void setOrdem(String ordem) {
+		this.ordem = ordem;
+	}
+
+
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+
 
 	public Motivo getMotivo() {
 		return motivo;

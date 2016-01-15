@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Tecnologia{
 
@@ -15,6 +17,7 @@ public class Tecnologia{
 	@GeneratedValue
 	private Integer Id;
 
+	@NotEmpty
 	private String nome;
 
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="tecnologia")
