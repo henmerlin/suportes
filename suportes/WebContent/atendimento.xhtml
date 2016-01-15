@@ -182,15 +182,15 @@ label{
 					icon="ui-icon-play" id="iniciar" onclick="iniciarAtendimento();" />
 
 
-				<h:panelGrid columns="3" id="formularioMotivo" style="display: none; padding-bottom: 15px;">
+				<h:panelGrid columns="3" cellpadding="100" cellspacing="010" id="formularioMotivo" style="display: none;">
 
 
-					<p:outputLabel for="n0" value="Instância: " />
+					<h:outputLabel for="n0" value="Instância: " />
 					<p:inputMask id="n0" mask="9999999999" value="#{atendimentoBean.atendimento.instancia}"/>
 					<p:message for="n0" />
 
 
-					<p:outputLabel for="n1" value="Ordem: " />
+					<h:outputLabel for="n1" value="Ordem: " />
 			        <p:selectOneButton id="n1" value="#{atendimentoBean.atendimento.ordem}">
 			            <f:selectItem itemLabel="BA" itemValue="BA" />
 			            <f:selectItem itemLabel="TT" itemValue="TT" />
@@ -198,19 +198,20 @@ label{
         			<p:message for="n1" />
 
 
-					<p:outputLabel for="n3" value="Motivo: " />
-					<p:selectOneMenu id="n3"  filter="true" converter="omnifaces.SelectItemsConverter" value="#{atendimentoBean.atendimento.motivo}">
+					<h:outputLabel for="n3" value="Tecnologia: " />
+					<p:selectOneMenu id="n3" converter="omnifaces.SelectItemsConverter" value="#{tecnologiaBean.tecnologia}" style="width: 150px;">
 						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
 						<f:selectItems value="#{tecnologiaBean.listar()}" var="tecnologia"
 							itemLabel="#{tecnologia.nome}" itemValue="#{tecnologia}" />
+						<p:ajax event="valueChange" update="n2" listener="#{tecnologiaBean.listarMotivos(tecnologiaBean.tecnologia)}"/>
 					</p:selectOneMenu>
 					<p:message for="n3" />
 
 
-					<p:outputLabel for="n2" value="Motivo: " />
-					<p:selectOneMenu id="n2"  filter="true" converter="omnifaces.SelectItemsConverter" value="#{atendimentoBean.atendimento.motivo}">
+					<h:outputLabel for="n2" value="Motivo: " />
+					<p:selectOneMenu id="n2"  filter="true" converter="omnifaces.SelectItemsConverter" value="#{atendimentoBean.atendimento.motivo}" style="width: 150px;">
 						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-						<f:selectItems value="#{motivoBean.listar()}" var="motivo"
+						<f:selectItems value="#{tecnologiaBean.tecnologia.motivos}" var="motivo"
 							itemLabel="#{motivo.nome}" itemValue="#{motivo}" />
 					</p:selectOneMenu>
 					<p:message for="n2" />
