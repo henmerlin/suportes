@@ -16,7 +16,7 @@ import entidades.Tecnologia;
 @Stateless
 public class TecnologiaServico {
 
-	@PersistenceContext(name = "vu")
+    @PersistenceContext(unitName="vu")  
 	private EntityManager entityManager;
 
 	public TecnologiaServico() {
@@ -58,7 +58,6 @@ public class TecnologiaServico {
 	@SuppressWarnings("unchecked")
 	public List<Motivo> listarMotivos(Tecnologia tecnologia) {
 		try {
-			this.entityManager.merge(tecnologia);
 			Query query = this.entityManager.createQuery("FROM Motivo m WHERE m.tecnologia =:param1");
 			query.setParameter("param1", tecnologia);
 			return query.getResultList();

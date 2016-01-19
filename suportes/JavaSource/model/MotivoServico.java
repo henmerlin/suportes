@@ -15,7 +15,7 @@ import entidades.Motivo;
 @Stateless
 public class MotivoServico {
 
-	@PersistenceContext(name = "vu")
+    @PersistenceContext(unitName="vu")  
 	private EntityManager entityManager;
 
 	public MotivoServico() {

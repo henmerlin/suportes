@@ -12,139 +12,129 @@
 		<script>
 
 			$(document).ready(function(){ 
+	
+// 				$("#infoAtendente").hide();
+// 				$("#infoAtt\\:atendimento").hide();
+					
+	        });
+			
+	
+	    	function consultaOperador(){
 
-				$("#infoAtendente").hide();
-            	$('#infoAtendente\\:formularioMotivo').hide();
-				
-			});
-		
-			function consultaOperador(){
-				
-				$("#infoAtendente").hide();
+	    		$("#infoAtt\\:atendimento").show();
 
 				var login = $("#formColab\\:name").val();
 				
 				$("#infoAtendente\\:matriculaAtendente").val(login);
-
-                $.ajax({ 
-                    type: 'GET',
-                    data: 
-                    'login=' +  login,
-                    url:  'http://efika/web/services/colaborador/',
-                    dataType: 'xml',
-                    success: function(xml){
-
-                    	$(xml).find('colaborador').each(function(){ 
-
-                     		var nome = $(this).find('nome').text();
-                     		var cargo = $(this).find('cargo').text();
-                     		var supervisor = $(this).find('supervisor').text();
-                     		var area = $(this).find('area').text();
-
+	
+	            $.ajax({ 
+	                type: 'GET',
+	                data: 
+	                'login=' +  login,
+	                url:  'http://efika/web/services/colaborador/',
+	                dataType: 'xml',
+	                success: function(xml){
+	
+	                	$(xml).find('colaborador').each(function(){ 
+	
+	                 		var nome = $(this).find('nome').text();
+	                 		var cargo = $(this).find('cargo').text();
+	                 		var supervisor = $(this).find('supervisor').text();
+	                 		var area = $(this).find('area').text();
+	
 							$("#infoAtendente\\:nome_colab").text(nome);
 							$("#infoAtendente\\:cargo_colab").text(cargo);
 							$("#infoAtendente\\:supervisor_colab").text(supervisor);
 							$("#infoAtendente\\:area_colab").text(area);
-
-                    	});
-                    }
-                });
-
-
-                $.ajax({ 
-                    type: 'GET',
-                    data: 
-                    'login=' +  login,
-                    url:  'http://efika/web/services/comandos/?max=5',
-                    dataType: 'xml',
-                    success: function(xml){
-
-                    	var comandos = [];
-                    	
-                    	$(xml).find('comando').each(function(){ 
-                            	
-                    		var nome = $(this).attr('nome');
-                    		var data = $(this).attr('data');
-
+	
+	                	});
+	                }
+	            });
+	
+	
+	            $.ajax({ 
+	                type: 'GET',
+	                data: 
+	                'login=' +  login,
+	                url:  'http://efika/web/services/comandos/?max=5',
+	                dataType: 'xml',
+	                success: function(xml){
+	
+	                	var comandos = [];
+	                	
+	                	$(xml).find('comando').each(function(){ 
+	                        	
+	                		var nome = $(this).attr('nome');
+	                		var data = $(this).attr('data');
+	
 							comandos.push(nome + ' - ' + data + '<br/>');
-                    	});
-
+	                	});
+	
 						$("#infoAtendente\\:comandos").html(comandos);
-                    	
-                    }
-                });
-
-
-                $.ajax({ 
-                    type: 'GET',
-                    data: 
-                    "login=" +  login,
-                    url:  'http://efika/web/services/materiais/?max=5',
-                    dataType: 'xml',
-                    success: function(xml){
-
-                    	var comandos = [];
-                    	
-                    	$(xml).find('material').each(function(){ 
-                            	
-                    		var titulo = $(this).attr('titulo');
-                    		var data = $(this).attr('data');
-
+	                	
+	                }
+	            });
+	
+	
+	            $.ajax({ 
+	                type: 'GET',
+	                data: 
+	                "login=" +  login,
+	                url:  'http://efika/web/services/materiais/?max=5',
+	                dataType: 'xml',
+	                success: function(xml){
+	
+	                	var comandos = [];
+	                	
+	                	$(xml).find('material').each(function(){ 
+	                        	
+	                		var titulo = $(this).attr('titulo');
+	                		var data = $(this).attr('data');
+	
 							comandos.push(titulo + ' - ' + data + '<br/>');
-                    	});
-
+	                	});
+	
 						$("#infoAtendente\\:materiais").html(comandos);
-
+	
 						$("#infoAtendente").show();
 						
-                    }
-                });
-
-				
-                
-            }
-
-            function iniciarAtendimento() {
-                
-            	$('#infoAtendente\\:iniciar').hide();
-            	$('#infoAtendente\\:formularioMotivo').show();
+	                }
+	            });
+				            
+	        }
+	
+	        function iniciarAtendimento() {
+	            
+	        	$('#infoAtendente\\:iniciar').hide();
+	        	$('#infoAtendente\\:formularioMotivo').show();
+	        	
 			}
+
+			function matricula(login) {
+				
+				$('#infoAtt\\:matricula').val(login);
+			}
+
 
 		</script>
 
-		<style type="text/css">
-legend {
-	font-size: 13px;
-}
 
-label {
-	all: none;
-}
-</style>
-
-		<p:messages globalOnly="true" autoUpdate="true" closable="true" />
-		<p:panel header="Personal Details" style="margin-bottom: 15px;">
-			<h:form id="formColab">
+		<h:form id="formColab">
+			<p:panel header="Matricula do Atendente" style="margin-bottom: 15px;">
 				<h:panelGrid columns="4" cellpadding="10">
 					<h:outputLabel for="name" value="Login Operador:"
 						style="margin-right: 10px;" />
-					<p:inputText name="name" id="name"
-						value="#{atendimentoBean.atendimento.colaborador}"
+					<p:inputText name="name" id="name" value="#{atendimentoBean.atendimento.colaborador}"
 						style="margin-right: 10px;" />
-					<p:commandButton id="teste" value="Buscar" update="@form"
-						onclick="consultaOperador()" icon="ui-icon-search" />
+					<p:commandButton id="teste" value="Buscar" update="@form"  onclick="consultaOperador(); matricula('#{loginBean.usuario.login}')"
+						icon="ui-icon-search" action="#{atendimentoBean.iniciar()}" immediate="false"/>
 					<p:message for="name" />
 				</h:panelGrid>
-			</h:form>
+			</p:panel>
+		</h:form>
 
-		</p:panel>
+		<h:form id="infoAtendente" name="infoAtendente">
 
-
-		<h:form id="infoAtendente" name="infoAtendente" style="display: none;">
-
-			<p:inputText id="matriculaAtendente" name="matriculaAtendente"
-				value="#{atendimentoBean.atendimento.colaborador}"
-				style="display: none;" />
 			<p:fieldset legend="Informações do Atendente" toggleable="true"
 				toggleSpeed="500" style="float: left; width: 60%;">
 				<p:panelGrid columns="2"
@@ -176,23 +166,19 @@ label {
 					</p:panel>
 				</h:panelGrid>
 			</p:fieldset>
+		</h:form>
 
 
-
+		<h:form id="infoAtt">
+	
 			<p:fieldset id="atendimento" legend="Atendimento" toggleable="false"
 				toggleSpeed="500" style="float: left; width: 60%; margin-top: 15px;">
 
-				<p:commandButton action="#{atendimentoBean.iniciar()}"
-					icon="ui-icon-play" id="iniciar" onclick="iniciarAtendimento();" />
-
-
-				<h:panelGrid columns="3" cellpadding="100" cellspacing="010"
-					id="formularioMotivo">
+				<h:panelGrid columns="3" cellpadding="100" cellspacing="010">
 
 
 					<h:outputLabel for="n0" value="Instância: " />
-					<p:inputMask id="n0" mask="9999999999"
-						value="#{atendimentoBean.atendimento.instancia}" />
+					<p:inputMask id="n0" mask="9999999999" value="#{atendimentoBean.atendimento.instancia}" />
 					<p:message for="n0" />
 
 
@@ -205,53 +191,51 @@ label {
 					<p:message for="n1" />
 
 
-					<h:outputLabel for="n3" value="Tecnologia: " />
-					<p:selectOneMenu id="n3" converter="omnifaces.SelectItemsConverter"
-						value="#{tecnologiaBean.tecnologia}" style="width: 150px;">
-						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-						<f:selectItems value="#{tecnologiaBean.listar()}" var="tecnologia"
-							itemLabel="#{tecnologia.nome}" itemValue="#{tecnologia}" />
-						<p:ajax event="valueChange" update="n2"
-							listener="#{tecnologiaBean.listarMotivos(tecnologiaBean.tecnologia)}" />
-					</p:selectOneMenu>
-					<p:message for="n3" />
-
-
 					<h:outputLabel for="n2" value="Motivo: " />
-					<p:selectOneMenu id="n2" filter="true"
-						converter="omnifaces.SelectItemsConverter"
-						value="#{atendimentoBean.atendimento.motivo}"
+					<p:selectOneMenu id="n2" filter="true" converter="omnifaces.SelectItemsConverter" 
+					value="#{atendimentoBean.atendimento.motivo}"
 						style="width: 150px;">
 						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-						<f:selectItems value="#{tecnologiaBean.tecnologia.motivos}"
+						<f:selectItems value="#{motivoBean.listar()}"
 							var="motivo" itemLabel="#{motivo.nome}" itemValue="#{motivo}" />
+
 					</p:selectOneMenu>
 					<p:message for="n2" />
 
 
 					<h:outputLabel value="Causa:" />
 
-					<p:panelGrid>
 
-						<p:fieldset>
-
-							<p:selectBooleanCheckbox value="#{selectBooleanView.value2}" />
+						<p:fieldset style="margin-bottom: 20px;">
+							<p:selectBooleanCheckbox id="acesso"
+								value="#{atendimentoBean.atendimento.acesso}" />
 							<h:outputText value=" Acesso" />
 							<br />
 
-							<p:selectBooleanCheckbox value="#{selectBooleanView.value2}" />
+							<p:selectBooleanCheckbox
+								value="#{atendimentoBean.atendimento.ferramentas}" />
 							<h:outputText value=" Não aderiu às ferramentas" />
 							<br />
-
+							
 						</p:fieldset>
-
-						<p:row style="margin-top: 20px; text-align: left;">
+					
+						<p:message for="acesso" />
+						
+						
+						<h:outputLabel value="Observação: " />
+						<p:inputTextarea id="observacao" value="#{atendimentoBean.atendimento.observacao}"/>
+						<p:message for="observacao" />
+						
+						<h:inputHidden id="matricula" value="#{atendimentoBean.atendimento.tecnico}"/>
+						
+						
+						<p:row></p:row>
+						<p:row></p:row>
+						<p:row>
 							<p:column colspan="3">
-								<p:commandButton action="#{atendimentoBean.finalizar()}"
-									value="Finalizar!" update="formularioMotivo"/>
+								<p:commandButton action="#{atendimentoBean.finalizar()}" value="Finalizar!" update="@all"/>
 							</p:column>
 						</p:row>
-					</p:panelGrid>
 
 				</h:panelGrid>
 

@@ -2,12 +2,10 @@ package entidades;
 
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Atendimento {
@@ -15,42 +13,38 @@ public class Atendimento {
 	@Id
 	@GeneratedValue
 	private Integer Id;
-
+	
 	private String tecnico;
 
-	@NotEmpty
 	private String colaborador;
-
-	@NotEmpty
+	
 	private String instancia;
 
-	@NotEmpty
 	private String ordem;
 
 	private String autorizacao;
 
-	@OneToOne
-	@NotNull
+	@OneToOne(fetch=FetchType.EAGER)
 	private Motivo motivo;
 
 	private String observacao;
 
 	private Date inicio;
-
+	
 	private Date fim;
+	
+	private Boolean acesso;
+	
+	private Boolean ferramentas;
 
 
 	public Atendimento() {
-
+	
 	}
-
-
 
 	public String getInstancia() {
 		return instancia;
 	}
-
-
 
 	public void setInstancia(String instancia) {
 		this.instancia = instancia;
@@ -147,7 +141,6 @@ public class Atendimento {
 		return result;
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -165,10 +158,25 @@ public class Atendimento {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Atendimento [Id=" + Id + "]";
+	}
+
+	public Boolean getAcesso() {
+		return acesso;
+	}
+
+	public void setAcesso(Boolean acesso) {
+		this.acesso = acesso;
+	}
+
+	public Boolean getFerramentas() {
+		return ferramentas;
+	}
+
+	public void setFerramentas(Boolean ferramentas) {
+		this.ferramentas = ferramentas;
 	}
 
 }

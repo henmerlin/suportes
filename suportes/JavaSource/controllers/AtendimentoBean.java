@@ -1,17 +1,15 @@
 package controllers;
 
-
-import java.util.Date;
-
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import entidades.Atendimento;
 import model.AtendimentoServico;
 import util.JSFUtil;
 
-@Named
-@RequestScoped
+@ViewScoped
+@ManagedBean(name="atendimentoBean")
 public class AtendimentoBean{
 
 	private Atendimento atendimento;
@@ -19,10 +17,10 @@ public class AtendimentoBean{
 	@EJB
 	private AtendimentoServico servicoAtendimento;
 
-
 	public AtendimentoBean() {
 		this.atendimento = new Atendimento();
 	}
+
 
 	public Atendimento getAtendimento() {
 		return atendimento;
@@ -31,32 +29,21 @@ public class AtendimentoBean{
 	public void setAtendimento(Atendimento atendimento) {
 		this.atendimento = atendimento;
 	}
-	
-	public String consultaOperador(){
 
-		return "window.location = 'infoOperador.jsf'";
-	}
-	
 	public Atendimento iniciar(){
-		
-		
-		
-		try {
-			this.atendimento.setInicio(new Date());
-			this.servicoAtendimento.iniciar(this.atendimento);
-			JSFUtil.addInfoMessage("Atendimento iniciado!");
-		} catch (Exception e) {
-			
-		}
-		
-		return this.atendimento;
-	}
-	
-	public void finalizar(){
-		
-		JSFUtil.addInfoMessage("Atendimento encerrado!");
 
+		JSFUtil.addInfoMessage("Atendimento iniciado!");
+		return this.atendimento = this.servicoAtendimento.iniciar(this.atendimento);
 	}
-	
-	
+
+
+	public Atendimento finalizar(){
+
+		this.servicoAtendimento.salvar(this.atendimento);
+		JSFUtil.addWarnMessage("Atendimento encerrado!");
+
+		return this.atendimento = new Atendimento();
+	}
+
+
 }

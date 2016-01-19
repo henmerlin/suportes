@@ -9,10 +9,24 @@
 		<class>entidades.Atendimento</class>
 		<class>entidades.Motivo</class>
 		<class>entidades.Tecnologia</class>
+		<class>entidades.Usuario</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 		</properties>
 	</persistence-unit>
+	
+	<persistence-unit name="mysql">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/MySqlDS</jta-data-source>
+		<class>entidades.Usuario</class>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+		</properties>
+	</persistence-unit>	
+	
+
 </persistence>

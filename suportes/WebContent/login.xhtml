@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/default/main.xhtml">
+
+	<ui:define name="content">
+
+		<h1 class="page-header ">
+			<i class="glyphicon glyphicon-list-alt"></i> Login
+		</h1>
+
+		<p:messages globalOnly="true" autoUpdate="true" closable="true" />
+
+		<div class="panel panel-default"
+			style="width: 50%; margin-right: 200px;">
+			<div class="panel-heading">Login</div>
+			<div class="panel-body">
+
+				<h:form>
+
+					<h:panelGrid columns="3">
+
+						<label for="login">Login: </label>
+						<p:inputText id="login" value="#{loginBean.usuario.login}" />
+						<p:message for="login" />
+
+						<label for="senha">Senha: </label>
+						<p:password id="senha" value="#{loginBean.usuario.senha}" />
+						<p:message for="senha" />
+	
+					<p:commandButton value="Entrar" action="#{loginBean.logar()}"
+						update="@all"/>					
+					</h:panelGrid>
+
+				</h:form>
+
+			</div>
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>
+
