@@ -29,18 +29,11 @@ public class AtendimentoBean{
 		this.atendimento = atendimento;
 	}
 
-	public Atendimento iniciar(){
-
-		JSFUtil.addInfoMessage("Atendimento iniciado!");
-		return this.atendimento = this.servicoAtendimento.iniciar(this.atendimento);
-	}
-
-
 	public Atendimento finalizar(){
 
 		this.servicoAtendimento.salvar(this.atendimento);
 		JSFUtil.addWarnMessage("Atendimento encerrado!");
-
+		
 		return this.atendimento = new Atendimento();
 	}
 

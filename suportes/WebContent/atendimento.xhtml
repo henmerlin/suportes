@@ -223,7 +223,7 @@
 
 					<p:outputLabel for="n9" value="Transmissão: " />
 					<p:selectOneButton id="n9"
-						value="#{atendimentoBean.atendimento.ordem}">
+						value="#{atendimentoBean.atendimento.servico}">
 						<f:selectItem itemLabel="Metalico" itemValue="Metalico" />
 						<f:selectItem itemLabel="GPON" itemValue="GPON" />
 						<f:selectItem itemLabel="FTTH" itemValue="FTTH" />
@@ -301,7 +301,7 @@
 						<p:column colspan="3">
 							<p:commandButton action="#{atendimentoBean.finalizar()}"
 								onclick="matricula('#{loginBean.usuario.login}');"
-								update="@form" value="Finalizar!" />
+								update="@form" value="Finalizar!"/>
 						</p:column>
 					</p:row>
 

@@ -35,17 +35,14 @@ public class Atendimento {
 	@NotEmpty
 	private String servico;
 
-	private String autorizacao;
-
 	@OneToOne
 	@NotNull
 	private Motivo motivo;
 
 	private String observacao;
 
-	private Date inicio;
 	
-	private Date fim;
+	private Date data;
 	
 	private Boolean acesso;
 	
@@ -61,7 +58,6 @@ public class Atendimento {
 		return servico;
 	}
 
-
 	public void setServico(String servico) {
 		this.servico = servico;
 	}
@@ -74,7 +70,6 @@ public class Atendimento {
 	public void setAcompanhamento(String acompanhamento) {
 		this.acompanhamento = acompanhamento;
 	}
-
 
 
 	public String getInstancia() {
@@ -118,13 +113,6 @@ public class Atendimento {
 		this.motivo = motivo;
 	}
 
-	public String getAutorizacao() {
-		return autorizacao;
-	}
-
-	public void setAutorizacao(String autorizacao) {
-		this.autorizacao = autorizacao;
-	}
 
 	public String getColaborador() {
 		return colaborador;
@@ -150,21 +138,30 @@ public class Atendimento {
 		this.tecnico = tecnico;
 	}
 
-	public Date getInicio() {
-		return inicio;
-	}
 
-	public void setInicio(Date inicio) {
-		this.inicio = inicio;
+	public Date getData() {
+		return data;
 	}
 
 
-	public Date getFim() {
-		return fim;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
-	public void setFim(Date fim) {
-		this.fim = fim;
+	public Boolean getAcesso() {
+		return acesso;
+	}
+
+	public void setAcesso(Boolean acesso) {
+		this.acesso = acesso;
+	}
+
+	public Boolean getFerramentas() {
+		return ferramentas;
+	}
+
+	public void setFerramentas(Boolean ferramentas) {
+		this.ferramentas = ferramentas;
 	}
 
 
@@ -197,21 +194,5 @@ public class Atendimento {
 	public String toString() {
 		return "Atendimento [Id=" + Id + "]";
 	}
-
-	public Boolean getAcesso() {
-		return acesso;
-	}
-
-	public void setAcesso(Boolean acesso) {
-		this.acesso = acesso;
-	}
-
-	public Boolean getFerramentas() {
-		return ferramentas;
-	}
-
-	public void setFerramentas(Boolean ferramentas) {
-		this.ferramentas = ferramentas;
-	}
-
+	
 }

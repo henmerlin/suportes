@@ -8,7 +8,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import entidades.Motivo;
-import entidades.Tecnologia;
 import model.MotivoServico;
 import util.JSFUtil;
 

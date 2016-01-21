@@ -19,23 +19,13 @@ public class AtendimentoServico {
 	public AtendimentoServico() {
 
 	}
-
-	public Atendimento iniciar(Atendimento atendimento){
-		
-		Date inicio = new Date();
-		atendimento.setInicio(inicio);
-		this.entityManager.persist(atendimento);
-
-		
-		return atendimento;
-	}
 	
 	public void salvar(Atendimento atendimento){
 		
-		Date fim = new Date();
-		atendimento.setFim(fim);
+		Date data = new Date();
+		atendimento.setData(data);
+		this.entityManager.persist(atendimento);
 		
-		this.entityManager.merge(atendimento);
 	}	
 	
 	public Atendimento obterAtendimento(Atendimento atendimento){

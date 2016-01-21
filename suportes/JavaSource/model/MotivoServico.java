@@ -11,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entidades.Motivo;
-import entidades.Tecnologia;
 
 @Stateless
 public class MotivoServico {

@@ -25,7 +25,6 @@ public class LoginServico {
 			Query query = this.entityManager.createQuery("FROM Usuario u WHERE u.login =:param1 AND u.senha =:param2");
 			query.setParameter("param1", login);
 			query.setParameter("param2", senha);
-
 			return (Usuario) query.getSingleResult();
 			
 		} catch (NoResultException e) {
