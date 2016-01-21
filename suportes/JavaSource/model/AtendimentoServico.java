@@ -4,14 +4,11 @@ package model;
 import java.util.Date;
 
 import javax.ejb.Stateless;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.servlet.http.HttpSession;
 
 import entidades.Atendimento;
-import entidades.Usuario;
 
 @Stateless
 public class AtendimentoServico {
@@ -27,7 +24,6 @@ public class AtendimentoServico {
 		
 		Date inicio = new Date();
 		atendimento.setInicio(inicio);
-		
 		this.entityManager.persist(atendimento);
 
 		

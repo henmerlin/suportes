@@ -55,6 +55,17 @@ public class TecnologiaServico {
 		}
 	}
 
+	public void excluir(Tecnologia tecnologia) throws Exception {
+		
+		if (tecnologia.getMotivos().size() == 0) {
+			this.entityManager.remove(this.entityManager.merge(tecnologia));
+		} else {
+			throw new Exception(
+					"Não é possível remover a tecnologia " + tecnologia.getNome() + " porque existem motivos associados.");
+		}
+	
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Motivo> listarMotivos(Tecnologia tecnologia) {
 		try {

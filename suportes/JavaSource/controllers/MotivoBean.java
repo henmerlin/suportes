@@ -8,6 +8,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import entidades.Motivo;
+import entidades.Tecnologia;
 import model.MotivoServico;
 import util.JSFUtil;
 
@@ -32,6 +33,19 @@ public class MotivoBean{
 		
 		return this.motivo;
 	}
+	
+	public void excluir(Motivo motivo){
+		
+		try {
+			this.servicoMotivo.excluir(motivo);
+			JSFUtil.addInfoMessage("Motivo " + motivo.getNome() + " excluido! ");
+		} catch (Exception e) {
+			JSFUtil.addErrorMessage(e.getMessage());		
+		}
+
+		
+	}
+	
 	
 	public List<Motivo> listar(){
 

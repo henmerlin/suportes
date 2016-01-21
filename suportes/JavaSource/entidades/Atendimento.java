@@ -2,10 +2,13 @@ package entidades;
 
 import java.util.Date;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Atendimento {
@@ -16,15 +19,26 @@ public class Atendimento {
 	
 	private String tecnico;
 
+	@NotEmpty
+	@Length(min=8, max=10, message="Padrão: G00XXXXX.")
 	private String colaborador;
 	
+	@NotEmpty
+	private String acompanhamento;
+	
+	@NotEmpty
 	private String instancia;
-
+	
+	@NotEmpty
 	private String ordem;
+	
+	@NotEmpty
+	private String servico;
 
 	private String autorizacao;
 
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne
+	@NotNull
 	private Motivo motivo;
 
 	private String observacao;
@@ -41,6 +55,27 @@ public class Atendimento {
 	public Atendimento() {
 	
 	}
+
+
+	public String getServico() {
+		return servico;
+	}
+
+
+	public void setServico(String servico) {
+		this.servico = servico;
+	}
+
+
+	public String getAcompanhamento() {
+		return acompanhamento;
+	}
+
+	public void setAcompanhamento(String acompanhamento) {
+		this.acompanhamento = acompanhamento;
+	}
+
+
 
 	public String getInstancia() {
 		return instancia;

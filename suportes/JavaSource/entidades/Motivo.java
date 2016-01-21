@@ -80,5 +80,6 @@ public class Motivo{
 		return "Motivo [Id=" + Id + "]";
 	}
 	
+	
 }
 

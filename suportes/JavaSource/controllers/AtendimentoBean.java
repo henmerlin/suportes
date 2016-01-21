@@ -21,7 +21,6 @@ public class AtendimentoBean{
 		this.atendimento = new Atendimento();
 	}
 
-
 	public Atendimento getAtendimento() {
 		return atendimento;
 	}

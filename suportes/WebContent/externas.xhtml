@@ -14,31 +14,7 @@
 			$(document).ready(function(){ 
 
 	        });
-
-			function consultaAcomp(){
-
-				var login = $("#infoAtt\\:loginAcompanhamento").val();
-				
-	            $.ajax({ 
-	                type: 'GET',
-	                data: 
-	                'login=' +  login,
-	                url:  'http://efika/web/services/colaborador/',
-	                dataType: 'xml',
-	                success: function(xml){
-	
-	                	$(xml).find('colaborador').each(function(){ 
-	
-	                 		var nome = $(this).find('nome').text();
-
-	                 		$("#infoAtt\\:nomeAcomp").text(nome);
-	                	});
-
-	                }
-               	});
-
-	                
-			}			
+			
 	
 	    	function consultaOperador(){
 
@@ -191,48 +167,25 @@
 
 
 		<!--  FORMULÁRIO DO ATENDIMENTO -->
-		<h:form id="infoAtt" style="font-size: 12px;">
+		<h:form id="infoAtt">
 			<p:fieldset id="atendimento" legend="Atendimento" toggleable="false"
 				toggleSpeed="500" style="float: left; width: 60%; margin-top: 15px;">
 				<h:panelGrid columns="3" cellpadding="100" cellspacing="10"
 					style="padding-top: 10px;">
 
-					<p:outputLabel for="loginOperador" value="Login Operador:" />
+					<h:outputLabel for="loginOperador" value="Login Operador:" />
 					<p:inputText id="loginOperador"
 						value="#{atendimentoBean.atendimento.colaborador}"
 						onblur="consultaOperador();" />
 					<p:message for="loginOperador" />
 
-					<p:outputLabel for="loginAcompanhamento"
-						value="Login Acompanhamento: " />
-					<p:inputText id="loginAcompanhamento"
-						value="#{atendimentoBean.atendimento.acompanhamento}"
-						onblur="consultaAcomp();" />
-					<p:message for="loginAcompanhamento" />
-
-					<p:outputLabel/>
-					<p:outputLabel id="nomeAcomp" escape="false" />
-					<p:outputLabel/>
-
-
-
-					<p:outputLabel for="n0" value="Instância: " />
+					<h:outputLabel for="n0" value="Instância: " />
 					<p:inputMask id="n0" mask="9999999999"
 						value="#{atendimentoBean.atendimento.instancia}" />
 					<p:message for="n0" />
 
-					<p:outputLabel for="n9" value="Transmissão: " />
-					<p:selectOneButton id="n9"
-						value="#{atendimentoBean.atendimento.ordem}">
-						<f:selectItem itemLabel="Metalico" itemValue="Metalico" />
-						<f:selectItem itemLabel="GPON" itemValue="GPON" />
-						<f:selectItem itemLabel="FTTH" itemValue="FTTH" />
-					</p:selectOneButton>
-					<p:message for="n9" />
 
-
-
-					<p:outputLabel for="n1" value="Ordem: " />
+					<h:outputLabel for="n1" value="Ordem: " />
 					<p:selectOneButton id="n1"
 						value="#{atendimentoBean.atendimento.ordem}">
 						<f:selectItem itemLabel="BA" itemValue="BA" />
@@ -241,7 +194,7 @@
 					<p:message for="n1" />
 
 
-					<p:outputLabel for="n3" value="Serviço: " />
+					<h:outputLabel for="n3" value="Tecnologia: " />
 					<p:selectOneMenu id="n3" converter="omnifaces.SelectItemsConverter"
 						value="#{subSelectBean.tecnologia}" style="width: 150px;">
 						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
@@ -255,7 +208,7 @@
 					<p:message for="n3" />
 
 
-					<p:outputLabel for="n2" value="Motivo: " />
+					<h:outputLabel for="n2" value="Motivo: " />
 					<p:selectOneMenu id="n2" filter="true"
 						converter="omnifaces.SelectItemsConverter"
 						value="#{atendimentoBean.atendimento.motivo}"
@@ -286,7 +239,7 @@
 					<p:message for="acesso" />
 
 
-					<p:outputLabel value="Observação: " />
+					<h:outputLabel value="Observação: " />
 					<p:inputTextarea id="observacao"
 						value="#{atendimentoBean.atendimento.observacao}" />
 					<p:message for="observacao" />
@@ -300,8 +253,8 @@
 					<p:row>
 						<p:column colspan="3">
 							<p:commandButton action="#{atendimentoBean.finalizar()}"
-								onclick="matricula('#{loginBean.usuario.login}');"
-								update="@form" value="Finalizar!" />
+								onclick="matricula('#{loginBean.usuario.login}');" update="@all"
+								value="Finalizar!" />
 						</p:column>
 					</p:row>
 

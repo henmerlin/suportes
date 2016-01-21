@@ -36,7 +36,7 @@ public class TecnologiaBean{
 		this.tecnologia = tecnologia;
 	}
 	
-	public void cadastrar(){
+	public Tecnologia cadastrar(){
 		
 		try {
 			servicoTecnologia.cadastrar(this.tecnologia);
@@ -45,6 +45,7 @@ public class TecnologiaBean{
 			JSFUtil.addErrorMessage(e.getMessage());
 		}
 		
+		return new Tecnologia();
 	}
 	
 	public List<Tecnologia> listar(){
@@ -52,9 +53,26 @@ public class TecnologiaBean{
 		return this.servicoTecnologia.listar();
 	}
 	
-	public List<Motivo> listarMotivos(Tecnologia tecnologia){
+	public void excluir(Tecnologia tecnologia){
+		
+		try {
+			this.servicoTecnologia.excluir(tecnologia);
+			JSFUtil.addInfoMessage("Tecnologia " + tecnologia.getNome() + " excluida! ");
+		} catch (Exception e) {
+			JSFUtil.addErrorMessage(e.getMessage());		
+		}
 
-		return this.servicoTecnologia.listarMotivos(tecnologia);
+		
+	}	
+	
+	
+	public List<Motivo> listarMotivos(Tecnologia tecnologia){
+		
+		List<Motivo> lista = this.servicoTecnologia.listarMotivos(tecnologia);
+		
+		this.tecnologia.setMotivos(lista);
+		
+		return lista;
 	}	
 	
 }

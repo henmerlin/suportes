@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entidades.Motivo;
+import entidades.Tecnologia;
 
 @Stateless
 public class MotivoServico {
@@ -38,4 +39,14 @@ public class MotivoServico {
 		}
 	}
 
+	public void excluir(Motivo motivo) throws Exception {
+		
+		try {
+			this.entityManager.remove(this.entityManager.merge(motivo));
+		} catch (Exception e) {
+			throw new Exception("Erro ao excluir motivo!");
+		}
+		
+	}
+	
 }

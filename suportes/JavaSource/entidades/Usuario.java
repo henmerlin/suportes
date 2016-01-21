@@ -19,6 +19,9 @@ public class Usuario {
 	@NotEmpty
 	@Column(name="SENHA")
 	private String senha;
+	
+	@Column(name="NIVEL")
+	private Integer nivel;
 		
 	public Usuario() {
 	
@@ -39,5 +42,15 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
+	public Integer getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(Integer nivel) {
+		this.nivel = nivel;
+	}
+	
+	
 	
 }

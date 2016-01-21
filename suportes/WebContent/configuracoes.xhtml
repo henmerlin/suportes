@@ -14,15 +14,43 @@
 		<p:panel header="Adicionar Tecnologia" style="margin-bottom: 15px;">
 			<h:form id="tecnologia">
 				<h:panelGrid columns="4" cellpadding="10">
-				
+
 					<h:outputLabel for="n0" value="Nome:" style="margin-right: 10px;" />
-					<p:inputText name="n0" id="n0" value="#{tecnologiaBean.tecnologia.nome}" style="margin-right: 10px;" />
+					<p:inputText name="n0" id="n0"
+						value="#{tecnologiaBean.tecnologia.nome}"
+						style="margin-right: 10px;" />
+					<p:commandButton action="#{tecnologiaBean.cadastrar()}"
+						value="Cadastrar" update="@form">
+
+						<f:ajax render="lista" />
+						<f:ajax render="motivos" />
+
+					</p:commandButton>
 					<p:message for="n0" />
-					<p:commandButton action="#{tecnologiaBean.cadastrar()}" value="Cadastrar" update="motivos" />
 
 				</h:panelGrid>
 			</h:form>
 		</p:panel>
+
+		<h:form id="lista" style="margin-bottom: 15px;">
+			<p:dataTable var="tec" value="#{tecnologiaBean.listar()}">
+				<f:facet name="header">
+            		Tecnologias
+        		</f:facet>
+				<p:column headerText="ID">
+					<h:outputText value="#{tec.id}" />
+				</p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{tec.nome}" />
+				</p:column>
+
+				<p:column headerText="Ação" style="text-align: center;">
+					<p:commandButton value="Excluir"
+						action="#{tecnologiaBean.excluir(tec)}" update="@form" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
 
 
 		<p:panel header="Adicionar Motivos" style="margin-bottom: 15px;">
@@ -34,7 +62,8 @@
 					<p:message for="name" />
 
 					<p:outputLabel for="n2" value="Tecnologia: " />
-					<p:selectOneMenu id="n2" converter="omnifaces.SelectItemsConverter" value="#{motivoBean.motivo.tecnologia}">
+					<p:selectOneMenu id="n2" converter="omnifaces.SelectItemsConverter"
+						value="#{motivoBean.motivo.tecnologia}">
 						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
 						<f:selectItems value="#{tecnologiaBean.listar()}" var="tecnologia"
 							itemLabel="#{tecnologia.nome}" itemValue="#{tecnologia}" />
@@ -42,11 +71,42 @@
 					<p:message for="n2" />
 
 					<p:commandButton action="#{motivoBean.cadastrar()}"
-						value="Cadastrar" update="@form" />
+						value="Cadastrar" update="@form">
+						<f:ajax render="fomr2" />
+					</p:commandButton>
 				</h:panelGrid>
-				
+
 			</h:form>
 		</p:panel>
+
+
+
+		<h:form id="fomr2" style="margin-bottom: 15px;">
+			<p:dataTable var="mot" value="#{motivoBean.listar()}">
+				<f:facet name="header">
+            		Motivos
+        		</f:facet>
+				<p:column headerText="ID">
+					<h:outputText value="#{mot.id}" />
+				</p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{mot.nome}" />
+				</p:column>
+
+				<p:column headerText="Tecnologia">
+					<h:outputText value="#{mot.tecnologia.nome}" />
+				</p:column>
+
+				<p:column headerText="Ação" style="text-align: center;">
+					<p:commandButton value="Excluir"
+						action="#{motivoBean.excluir(mot)}" update="@form">
+						<f:ajax render="@all" />
+
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
 
 
 

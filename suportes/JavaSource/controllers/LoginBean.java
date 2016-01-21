@@ -43,13 +43,27 @@ public class LoginBean implements Serializable{
 		}
 
 	}
+	
+	public void validaAdmin(){
+		
+		FacesContext fc = FacesContext.getCurrentInstance();
+
+		if (this.usuario.getNivel() < 8){
+
+			ConfigurableNavigationHandler nav  = (ConfigurableNavigationHandler) 
+					fc.getApplication().getNavigationHandler();
+			nav.performNavigation("restrito.jsf");
+
+		}
+	}
+	
 
 	public String logar(){
 
 		try {
 			servicoLogin.consultar(usuario.getLogin(), usuario.getSenha());
 			this.logado = true;
-			return "atendimento.jsf";
+			return "index.jsf";
 
 		} catch (Exception e) {
 
