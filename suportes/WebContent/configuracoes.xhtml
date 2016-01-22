@@ -1,16 +1,23 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	template="/templates/default/main.xhtml">
-	<ui:define name="content">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-		<h1 class="page-header ">
-			<i class="glyphicon glyphicon-list-alt"></i> Configurações
-		</h1>
+<ui:composition template="/recursos/template/template.xhtml">
 
+	<ui:define name="tituloPagina">
+		Configurações
+	</ui:define>
+	<ui:define name="tituloPrincipal">
+		<i class="fa fa-cog"> </i> Configurações</ui:define>
+	<ui:define name="tituloSecundario">Adicione Serviço e Motivos no relatório</ui:define>
+	
+	<ui:define name="botoesAcao"></ui:define>
 
+	<ui:define name="conteudo">
+	
 		<p:panel header="Adicionar Tecnologia" style="margin-bottom: 15px;">
 			<h:form id="tecnologia">
 				<h:panelGrid columns="4" cellpadding="10">
@@ -111,6 +118,5 @@
 
 
 	</ui:define>
-
 </ui:composition>
-
+</html>

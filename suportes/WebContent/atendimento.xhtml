@@ -1,18 +1,27 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	template="/templates/default/main.xhtml">
-	<ui:define name="content">
-		<h1 class="page-header ">
-			<i class="glyphicon glyphicon-list-alt"></i> Atendimento
-		</h1>
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/recursos/template/template.xhtml">
+
+	<ui:define name="tituloPagina">
+		Atendimento
+	</ui:define>
+	<ui:define name="tituloPrincipal">
+		<i class="fa fa-list-alt"> </i> Atendimento</ui:define>
+	<ui:define name="tituloSecundario">...</ui:define>
+	
+	<ui:define name="botoesAcao"></ui:define>
+
+	<ui:define name="conteudo">
 
 		<script>
 
 			$(document).ready(function(){ 
-
+					
 	        });
 
 			function consultaAcomp(){
@@ -151,11 +160,10 @@
 		<h:form id="infoAtendente" name="infoAtendente" style="display: none;">
 
 			<h:panelGrid columns="1"
-				style="width: 38%; font-size: 12px; float: right; margin-bottom: 15px;">
+				style="width: 38%; float: right; margin-bottom: 15px;">
 				<p:fieldset legend="Informações do Atendente" toggleable="true"
 					toggleSpeed="500" style="margin-top: 15px;">
-					<p:panelGrid columns="2"
-						style="margin-bottom: 10px; font-size: 12px;">
+					<p:panelGrid columns="2" style="margin-bottom: 10px;">
 						<h:outputText value="Nome:" />
 						<h:outputText id="nome_colab" />
 
@@ -191,7 +199,7 @@
 
 
 		<!--  FORMULÁRIO DO ATENDIMENTO -->
-		<h:form id="infoAtt" style="font-size: 12px;">
+		<h:form id="infoAtt">
 			<p:fieldset id="atendimento" legend="Atendimento" toggleable="false"
 				toggleSpeed="500" style="float: left; width: 60%; margin-top: 15px;">
 				<h:panelGrid columns="3" cellpadding="100" cellspacing="10"
@@ -210,9 +218,9 @@
 						onblur="consultaAcomp();" />
 					<p:message for="loginAcompanhamento" />
 
-					<p:outputLabel/>
+					<p:outputLabel />
 					<p:outputLabel id="nomeAcomp" escape="false" />
-					<p:outputLabel/>
+					<p:outputLabel />
 
 
 
@@ -301,7 +309,7 @@
 						<p:column colspan="3">
 							<p:commandButton action="#{atendimentoBean.finalizar()}"
 								onclick="matricula('#{loginBean.usuario.login}');"
-								update="@form" value="Finalizar!"/>
+								update="@form" value="Finalizar!" />
 						</p:column>
 					</p:row>
 
@@ -312,4 +320,6 @@
 
 	</ui:define>
 </ui:composition>
+
+</html>
 

@@ -69,8 +69,7 @@ public class LoginBean implements Serializable{
 
 			JSFUtil.addWarnMessage(e.getMessage());
 			this.usuario = new Usuario();
-			return "login.jsf";
-
+			return "";
 		}
 	}
 
