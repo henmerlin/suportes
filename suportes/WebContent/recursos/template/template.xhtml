@@ -21,7 +21,11 @@
 </h:head>
 
 <h:body>
-	<f:event listener="#{loginBean.validarLogin()}" type="preRenderView" />
+	
+	<ui:insert name="eventos">
+		<f:event listener="#{loginBean.validarLogin()}" type="preRenderView" />
+	</ui:insert>
+
 
 	<div id="topo" class="gradienteTelefonica">
 		<div class="marca">

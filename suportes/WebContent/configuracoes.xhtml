@@ -6,18 +6,22 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/recursos/template/template.xhtml">
-
 	<ui:define name="tituloPagina">
 		Configurações
 	</ui:define>
 	<ui:define name="tituloPrincipal">
 		<i class="fa fa-cog"> </i> Configurações</ui:define>
 	<ui:define name="tituloSecundario">Adicione Serviço e Motivos no relatório</ui:define>
-	
+
 	<ui:define name="botoesAcao"></ui:define>
 
+	<ui:define name="eventos">
+		<f:event listener="#{loginBean.validaAdmin()}" type="preRenderView" />
+	</ui:define>
+
 	<ui:define name="conteudo">
-	
+
+
 		<p:panel header="Adicionar Tecnologia" style="margin-bottom: 15px;">
 			<h:form id="tecnologia">
 				<h:panelGrid columns="4" cellpadding="10">

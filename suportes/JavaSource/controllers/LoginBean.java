@@ -39,29 +39,34 @@ public class LoginBean implements Serializable{
 			ConfigurableNavigationHandler nav  = (ConfigurableNavigationHandler) 
 					fc.getApplication().getNavigationHandler();
 			nav.performNavigation("login.jsf");
-
+			
 		}
 
 	}
-	
+
 	public void validaAdmin(){
-		
+
+		this.validarLogin();
+
 		FacesContext fc = FacesContext.getCurrentInstance();
 
-		if (this.usuario.getNivel() < 8){
+		Boolean restrito = (this.usuario.getNivel() < 7);
+
+		if (restrito){
 
 			ConfigurableNavigationHandler nav  = (ConfigurableNavigationHandler) 
 					fc.getApplication().getNavigationHandler();
-			nav.performNavigation("restrito.jsf");
+			nav.performNavigation("restrito.jsf");			
 
 		}
 	}
-	
+
 
 	public String logar(){
 
 		try {
-			servicoLogin.consultar(usuario.getLogin(), usuario.getSenha());
+
+			this.usuario = servicoLogin.consultar(usuario.getLogin(), usuario.getSenha());
 			this.logado = true;
 			return "index.jsf";
 

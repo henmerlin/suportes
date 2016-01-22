@@ -28,6 +28,7 @@ public class LoginServico {
 			return (Usuario) query.getSingleResult();
 			
 		} catch (NoResultException e) {
+			
 			throw new Exception("Usuário ou Senha incorretos!");
 		}
 	}
