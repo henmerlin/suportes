@@ -12,8 +12,8 @@
 	</ui:define>
 	<ui:define name="tituloPrincipal">
 		<i class="fa fa-list-alt"> </i> Atendimento</ui:define>
-	<ui:define name="tituloSecundario">...</ui:define>
-	
+	<ui:define name="tituloSecundario">Suporte Técnico</ui:define>
+
 	<ui:define name="botoesAcao"></ui:define>
 
 	<ui:define name="conteudo">
@@ -279,6 +279,13 @@
 
 
 					<p:fieldset style="margin-bottom: 20px;">
+
+						<p:selectBooleanCheckbox
+							value="#{atendimentoBean.atendimento.demandaExterna}" />
+						<h:outputText value=" Demanda Externa" />
+						<br />
+
+
 						<p:selectBooleanCheckbox id="acesso"
 							value="#{atendimentoBean.atendimento.acesso}" />
 						<h:outputText value=" Acesso" />
@@ -288,6 +295,9 @@
 							value="#{atendimentoBean.atendimento.ferramentas}" />
 						<h:outputText value=" Não aderiu às ferramentas" />
 						<br />
+
+
+
 
 					</p:fieldset>
 

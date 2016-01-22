@@ -47,10 +47,22 @@ public class Atendimento {
 	private Boolean acesso;
 	
 	private Boolean ferramentas;
+	
+	private Boolean demandaExterna;
 
 
 	public Atendimento() {
 	
+	}
+
+
+	public Boolean getDemandaExterna() {
+		return demandaExterna;
+	}
+
+
+	public void setDemandaExterna(Boolean demandaExterna) {
+		this.demandaExterna = demandaExterna;
 	}
 
 
@@ -97,13 +109,9 @@ public class Atendimento {
 		return observacao;
 	}
 
-
-
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
-
 
 	public Motivo getMotivo() {
 		return motivo;

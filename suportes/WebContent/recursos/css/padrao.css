@@ -125,7 +125,8 @@ div#corpo {
 	padding-left: 10px;
 }
 
-.conteudo .barraAcoes {
+.conteudo .barraAcoesDesabilitado {
+	
 	margin-top: 15px;
 	padding: 5px;
 	min-height: 25px;
