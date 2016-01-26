@@ -31,7 +31,7 @@ public class MotivoServico {
 	@SuppressWarnings("unchecked")
 	public List<Motivo> listar() {
 		try {
-			Query query = this.entityManager.createQuery("FROM Motivo m");
+			Query query = this.entityManager.createQuery("FROM Motivo m ORDER BY m.nome ASC");
 			return query.getResultList();
 		} catch (NoResultException e) {
 			return new ArrayList<Motivo>();
