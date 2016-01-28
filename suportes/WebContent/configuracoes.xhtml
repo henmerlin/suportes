@@ -71,8 +71,8 @@
 				</p:dataTable>
 
 				<p:dialog header="Editar Tecnologia" widgetVar="carDialog"
-					modal="true" showEffect="fade" hideEffect="fade" resizable="false"
-					width="500" height="300" style="font-size: 15px;">
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false" maximizable="true"
+					width="500" height="100" style="font-size: 15px;">
 					<p:outputPanel id="carDetail" style="text-align:center;">
 						<h:panelGrid columns="3" title="Tecnologia"
 							rendered="#{not empty subSelectBean.tecnologia}"
@@ -162,10 +162,10 @@
 
 				<p:dialog header="Editar Motivo" widgetVar="carDialog2"
 					modal="true" showEffect="fade" hideEffect="fade" resizable="false"
-					width="500" height="300" style="font-size: 15px;">
+					width="500" height="100" style="font-size: 15px;">
 					<p:outputPanel id="carDetail2" style="text-align:center;">
 						<h:panelGrid columns="3" title="Motivo"
-							rendered="#{not empty subSelectBean.tecnologia}"
+							rendered="#{not empty subSelectBean.motivo}"
 							columnClasses="label,value">
 
 							<h:outputText for="nomeAlt" value="Novo Nome:" />
