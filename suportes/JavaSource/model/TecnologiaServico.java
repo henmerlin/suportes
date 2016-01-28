@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.RollbackException;
 
 import entidades.Motivo;
 import entidades.Tecnologia;
@@ -34,6 +35,16 @@ public class TecnologiaServico {
 
 	}
 
+	public Tecnologia atualizar(Tecnologia tecnologia) throws Exception{
+		try {
+			this.entityManager.merge(tecnologia);
+		} catch (RollbackException e) {
+			throw new Exception(e.getMessage());
+		}
+		
+		return tecnologia;
+	}	
+	
 	public Tecnologia consultaPorNome(String nome){
 		
 		try {
@@ -44,6 +55,18 @@ public class TecnologiaServico {
 			return null;
 		}
 	}
+	
+	public Tecnologia consultar(Integer id){
+		
+		try {
+			Query query = this.entityManager.createQuery("FROM Tecnologia t WHERE t.id =:param1");
+			query.setParameter("param1", id);
+			return (Tecnologia) query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}	
+
 
 	@SuppressWarnings("unchecked")
 	public List<Tecnologia> listar() {
@@ -69,7 +92,7 @@ public class TecnologiaServico {
 	@SuppressWarnings("unchecked")
 	public List<Motivo> listarMotivos(Tecnologia tecnologia) {
 		try {
-			Query query = this.entityManager.createQuery("FROM Motivo m WHERE m.tecnologia =:param1");
+			Query query = this.entityManager.createQuery("FROM Motivo m WHERE m.tecnologia =:param1 ORDER BY m.nome ASC");
 			query.setParameter("param1", tecnologia);
 			return query.getResultList();
 		} catch (NoResultException e) {

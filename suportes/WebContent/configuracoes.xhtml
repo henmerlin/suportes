@@ -21,104 +21,168 @@
 
 	<ui:define name="conteudo">
 
+		<p:fieldset legend="Tecnologia" toggleable="true" toggleSpeed="500"
+			style="margin-bottom: 20px;">
+			<p:panel header="Adicionar Tecnologia" style="margin-bottom: 15px;">
+				<h:form id="tecnologia">
+					<h:panelGrid columns="4" cellpadding="10">
 
-		<p:panel header="Adicionar Tecnologia" style="margin-bottom: 15px;">
-			<h:form id="tecnologia">
-				<h:panelGrid columns="4" cellpadding="10">
+						<h:outputLabel for="n0" value="Nome:" style="margin-right: 10px;" />
+						<p:inputText name="n0" id="n0"
+							value="#{tecnologiaBean.tecnologia.nome}"
+							style="margin-right: 10px;" />
+						<p:commandButton action="#{tecnologiaBean.cadastrar()}"
+							value="Cadastrar" update="@form, lista, motivos" />
+						<p:message for="n0" />
+					</h:panelGrid>
+				</h:form>
+			</p:panel>
 
-					<h:outputLabel for="n0" value="Nome:" style="margin-right: 10px;" />
-					<p:inputText name="n0" id="n0"
-						value="#{tecnologiaBean.tecnologia.nome}"
-						style="margin-right: 10px;" />
-					<p:commandButton action="#{tecnologiaBean.cadastrar()}"
-						value="Cadastrar" update="@form">
-
-						<f:ajax render="lista" />
-						<f:ajax render="motivos" />
-
-					</p:commandButton>
-					<p:message for="n0" />
-
-				</h:panelGrid>
-			</h:form>
-		</p:panel>
-
-		<h:form id="lista" style="margin-bottom: 15px;">
-			<p:dataTable var="tec" value="#{tecnologiaBean.listar()}">
-				<f:facet name="header">
+			<h:form id="lista" style="margin-bottom: 15px;">
+				<p:dataTable var="tec" id="teste" paginator="true"
+					value="#{tecnologiaBean.listar()}">
+					<f:facet name="header">
             		Tecnologias
         		</f:facet>
-				<p:column headerText="ID">
-					<h:outputText value="#{tec.id}" />
-				</p:column>
-				<p:column headerText="Nome">
-					<h:outputText value="#{tec.nome}" />
-				</p:column>
 
-				<p:column headerText="Ação" style="text-align: center;">
-					<p:commandButton value="Excluir"
-						action="#{tecnologiaBean.excluir(tec)}" update="@form" />
-				</p:column>
-			</p:dataTable>
-		</h:form>
+					<p:column headerText="ID">
+						<h:outputText value="#{tec.id}" />
+					</p:column>
 
+					<p:column headerText="Nome">
+						<h:outputText value="#{tec.nome}" />
+					</p:column>
 
+					<p:column headerText="Ação" style="text-align: center;">
+						<p:commandButton value="Excluir"
+							action="#{tecnologiaBean.excluir(tec)}" update="@form, motivos" />
+					</p:column>
 
-		<p:panel header="Adicionar Motivos" style="margin-bottom: 15px;">
-			<h:form id="motivos">
-				<h:panelGrid columns="3">
-					<p:outputLabel for="name" value="Nome:" style="margin-right: 10px;" />
-					<p:inputText name="name" id="name"
-						value="#{motivoBean.motivo.nome}" style="margin-right: 10px;" />
-					<p:message for="name" />
+					<p:column>
+						<p:commandLink update=":lista:carDetail"
+							oncomplete="PF('carDialog').show()" title="View Detail">
+							<h:outputText styleClass="ui-icon ui-icon-search"
+								style="margin:0 auto;" />
+							<f:setPropertyActionListener value="#{tec}"
+								target="#{subSelectBean.tecnologia}" />
+						</p:commandLink>
+					</p:column>
 
-					<p:outputLabel for="n2" value="Tecnologia: " />
-					<p:selectOneMenu id="n2" converter="omnifaces.SelectItemsConverter"
-						value="#{motivoBean.motivo.tecnologia}">
-						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-						<f:selectItems value="#{tecnologiaBean.listar()}" var="tecnologia"
-							itemLabel="#{tecnologia.nome}" itemValue="#{tecnologia}" />
-					</p:selectOneMenu>
-					<p:message for="n2" />
+				</p:dataTable>
 
-					<p:commandButton action="#{motivoBean.cadastrar()}"
-						value="Cadastrar" update="@form">
-						<f:ajax render="fomr2" />
-					</p:commandButton>
-				</h:panelGrid>
+				<p:dialog header="Editar Tecnologia" widgetVar="carDialog"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+					width="500" height="300" style="font-size: 15px;">
+					<p:outputPanel id="carDetail" style="text-align:center;">
+						<h:panelGrid columns="3" title="Tecnologia"
+							rendered="#{not empty subSelectBean.tecnologia}"
+							columnClasses="label,value">
+
+							<h:outputText for="nomeAlt" value="Novo Nome:" />
+							<p:inputText id="nomeAlt"
+								value="#{subSelectBean.tecnologia.nome}" />
+							<p:commandButton action="#{subSelectBean.atualizar()}"
+								value="Atualizar" update="@all" />
+
+						</h:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
 
 			</h:form>
-		</p:panel>
+
+		</p:fieldset>
+
+		<p:fieldset legend="Motivos" toggleable="true" toggleSpeed="500">
+
+			<p:panel header="Adicionar Motivos" style="margin-bottom: 15px;">
+				<h:form id="motivos">
+					<h:panelGrid columns="3">
+						<p:outputLabel for="name" value="Nome:"
+							style="margin-right: 10px;" />
+						<p:inputText name="name" id="name"
+							value="#{motivoBean.motivo.nome}" style="margin-right: 10px;" />
+						<p:message for="name" />
+
+						<p:outputLabel for="n2" value="Tecnologia: " />
+						<p:selectOneMenu id="n2"
+							converter="omnifaces.SelectItemsConverter"
+							value="#{motivoBean.motivo.tecnologia}">
+							<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
+							<f:selectItems value="#{tecnologiaBean.listar()}"
+								var="tecnologia" itemLabel="#{tecnologia.nome}"
+								itemValue="#{tecnologia}" />
+						</p:selectOneMenu>
+						<p:message for="n2" />
+
+						<p:commandButton action="#{motivoBean.cadastrar()}"
+							value="Cadastrar" update="@form, fomr2">
+							<f:ajax render="fomr2" />
+						</p:commandButton>
+					</h:panelGrid>
+
+				</h:form>
+			</p:panel>
 
 
 
-		<h:form id="fomr2" style="margin-bottom: 15px;">
-			<p:dataTable var="mot" value="#{motivoBean.listar()}">
-				<f:facet name="header">
+			<h:form id="fomr2" style="margin-bottom: 15px;">
+				<p:dataTable var="mot" value="#{motivoBean.listar()}"
+					paginator="true">
+					<f:facet name="header">
             		Motivos
         		</f:facet>
-				<p:column headerText="ID">
-					<h:outputText value="#{mot.id}" />
-				</p:column>
-				<p:column headerText="Nome">
-					<h:outputText value="#{mot.nome}" />
-				</p:column>
+					<p:column headerText="ID">
+						<h:outputText value="#{mot.id}" />
+					</p:column>
+					<p:column headerText="Nome">
+						<h:outputText value="#{mot.nome}" />
+					</p:column>
 
-				<p:column headerText="Tecnologia">
-					<h:outputText value="#{mot.tecnologia.nome}" />
-				</p:column>
+					<p:column headerText="Tecnologia">
+						<h:outputText value="#{mot.tecnologia.nome}" />
+					</p:column>
 
-				<p:column headerText="Ação" style="text-align: center;">
-					<p:commandButton value="Excluir"
-						action="#{motivoBean.excluir(mot)}" update="@form">
-						<f:ajax render="@all" />
+					<p:column headerText="Ação" style="text-align: center;">
+						<p:commandButton value="Excluir"
+							action="#{motivoBean.excluir(mot)}" update="fomr2">
+						</p:commandButton>
+					</p:column>
 
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
-		</h:form>
+					<p:column>
+						<p:commandLink update=":fomr2:carDetail2"
+							oncomplete="PF('carDialog2').show()" title="View Detail">
+							<h:outputText styleClass="ui-icon ui-icon-search"
+								style="margin:0 auto;" />
+							<f:setPropertyActionListener value="#{mot}"
+								target="#{subSelectBean.motivo}" />
+						</p:commandLink>
+					</p:column>
+
+				</p:dataTable>
+
+				<p:dialog header="Editar Motivo" widgetVar="carDialog2"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+					width="500" height="300" style="font-size: 15px;">
+					<p:outputPanel id="carDetail2" style="text-align:center;">
+						<h:panelGrid columns="3" title="Motivo"
+							rendered="#{not empty subSelectBean.tecnologia}"
+							columnClasses="label,value">
+
+							<h:outputText for="nomeAlt" value="Novo Nome:" />
+							<p:inputText id="nomeAlt"
+								value="#{subSelectBean.motivo.nome}" />
+							<p:commandButton action="#{subSelectBean.atualizarMotivo()}"
+								value="Atualizar" update="@all" />
+						</h:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
 
 
+
+
+			</h:form>
+
+		</p:fieldset>
 
 
 	</ui:define>

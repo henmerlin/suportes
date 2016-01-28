@@ -7,6 +7,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import org.primefaces.event.RowEditEvent;
+
 import entidades.Motivo;
 import entidades.Tecnologia;
 import model.TecnologiaServico;
@@ -35,26 +37,25 @@ public class TecnologiaBean{
 	public void setTecnologia(Tecnologia tecnologia) {
 		this.tecnologia = tecnologia;
 	}
-	
-	public Tecnologia cadastrar(){
-		
+
+	public void cadastrar(){
+
 		try {
 			servicoTecnologia.cadastrar(this.tecnologia);
 			JSFUtil.addInfoMessage("Tecnologia " + this.tecnologia.getNome() + " cadastrada! ");
 		} catch (Exception e) {
 			JSFUtil.addErrorMessage(e.getMessage());
 		}
-		
-		return new Tecnologia();
+
 	}
-	
+
 	public List<Tecnologia> listar(){
 
 		return this.servicoTecnologia.listar();
 	}
-	
+
 	public void excluir(Tecnologia tecnologia){
-		
+
 		try {
 			this.servicoTecnologia.excluir(tecnologia);
 			JSFUtil.addInfoMessage("Tecnologia " + tecnologia.getNome() + " excluida! ");
@@ -62,17 +63,43 @@ public class TecnologiaBean{
 			JSFUtil.addErrorMessage(e.getMessage());		
 		}
 
-		
+
 	}	
-	
-	
+
+
 	public List<Motivo> listarMotivos(Tecnologia tecnologia){
-		
+
 		List<Motivo> lista = this.servicoTecnologia.listarMotivos(tecnologia);
-		
+
 		this.tecnologia.setMotivos(lista);
-		
+
 		return lista;
 	}	
 	
+	
+	
+	public void atualizar(Tecnologia tecnologia){		
+
+		try {
+			this.servicoTecnologia.atualizar(tecnologia);
+			JSFUtil.addInfoMessage("Tecnologia " + tecnologia.getNome() + " atualizada! ");
+		} catch (Exception e) {
+			JSFUtil.addErrorMessage(e.getMessage());
+		}
+	}
+	
+	
+    public void onRowEdit(RowEditEvent event) {
+    	
+    	Integer id = ((Tecnologia) event.getObject()).getId();
+    	
+       	System.out.println(((Tecnologia) event.getObject()).getNome());
+    	
+    	this.tecnologia = this.servicoTecnologia.consultar(id);
+    	
+    	this.atualizar(this.tecnologia);
+
+    }
+    
+
 }

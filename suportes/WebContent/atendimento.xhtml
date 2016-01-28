@@ -178,7 +178,7 @@
 					</p:panelGrid>
 				</p:fieldset>
 
-				<p:fieldset legend="Uso Efika" toggleable="false" toggleSpeed="500"
+				<p:fieldset legend="Uso Efika" toggleable="true" toggleSpeed="500"
 					style="margin-top: 15px;">
 					<h:panelGrid>
 						<p:panel header="Materiais" style="width: 100%;">
@@ -267,7 +267,7 @@
 					<p:selectOneMenu id="n2" filter="true"
 						converter="omnifaces.SelectItemsConverter"
 						value="#{atendimentoBean.atendimento.motivo}"
-						style="width: 150px;">
+						style="width: 100%;">
 						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
 						<f:selectItems id="opcoes"
 							value="#{subSelectBean.tecnologia.motivos}" var="motivo"

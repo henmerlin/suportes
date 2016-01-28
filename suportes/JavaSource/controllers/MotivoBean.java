@@ -39,10 +39,8 @@ public class MotivoBean{
 			this.servicoMotivo.excluir(motivo);
 			JSFUtil.addInfoMessage("Motivo " + motivo.getNome() + " excluido! ");
 		} catch (Exception e) {
-			JSFUtil.addErrorMessage(e.getMessage());		
+			JSFUtil.addErrorMessage(e.getMessage());
 		}
-
-		
 	}
 	
 	
