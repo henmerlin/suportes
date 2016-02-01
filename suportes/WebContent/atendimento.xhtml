@@ -212,14 +212,14 @@
 					<p:outputLabel for="loginOperador" value="Login Operador:" />
 					<p:inputText id="loginOperador"
 						value="#{atendimentoBean.atendimento.colaborador}"
-						onblur="consultaOperador();"/>
+						onblur="consultaOperador();" />
 					<p:message for="loginOperador" />
 
 					<p:outputLabel for="loginAcompanhamento"
 						value="Login Acompanhamento: " />
 					<p:inputText id="loginAcompanhamento"
 						value="#{atendimentoBean.atendimento.acompanhamento}"
-						onblur="consultaAcomp();" ondblclick="preencheNA();"/>
+						onblur="consultaAcomp();" ondblclick="preencheNA();" />
 					<p:message for="loginAcompanhamento" />
 
 					<p:outputLabel />
@@ -271,7 +271,7 @@
 					<p:selectOneMenu id="n2" filter="true"
 						converter="omnifaces.SelectItemsConverter"
 						value="#{atendimentoBean.atendimento.motivo}"
-						style="width: 100%;">
+						filterMatchMode="contains" style="width: 100%;">
 						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
 						<f:selectItems id="opcoes"
 							value="#{subSelectBean.tecnologia.motivos}" var="motivo"
