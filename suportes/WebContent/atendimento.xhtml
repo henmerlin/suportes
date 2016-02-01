@@ -141,7 +141,11 @@
 	            });
 				            
 	        }
-	
+
+	    	function preencheNA(){
+	    		$('#infoAtt\\:loginAcompanhamento').val('N/A');    		
+		    }
+	        	
 	        function iniciarAtendimento() {
 	            
 	        	$('#infoAtendente\\:iniciar').hide();
@@ -208,14 +212,14 @@
 					<p:outputLabel for="loginOperador" value="Login Operador:" />
 					<p:inputText id="loginOperador"
 						value="#{atendimentoBean.atendimento.colaborador}"
-						onblur="consultaOperador();" />
+						onblur="consultaOperador();"/>
 					<p:message for="loginOperador" />
 
 					<p:outputLabel for="loginAcompanhamento"
 						value="Login Acompanhamento: " />
 					<p:inputText id="loginAcompanhamento"
 						value="#{atendimentoBean.atendimento.acompanhamento}"
-						onblur="consultaAcomp();" />
+						onblur="consultaAcomp();" ondblclick="preencheNA();"/>
 					<p:message for="loginAcompanhamento" />
 
 					<p:outputLabel />

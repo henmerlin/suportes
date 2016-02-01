@@ -26,9 +26,13 @@ public class MotivoBean{
 	}
 
 	public Motivo cadastrar(){
-		
-		servicoMotivo.cadastrar(this.motivo);
-		JSFUtil.addInfoMessage("Motivo " + this.motivo.getNome() + " cadastrado! ");
+		try {
+			this.servicoMotivo.cadastrar(this.motivo);
+			JSFUtil.addInfoMessage("Motivo " + this.motivo.getNome() + " cadastrado! ");
+		} catch (Exception e) {
+			JSFUtil.addErrorMessage(e.getMessage());
+		}
+
 		
 		return this.motivo;
 	}

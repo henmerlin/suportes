@@ -27,7 +27,7 @@ public class TecnologiaServico {
 	public void cadastrar(Tecnologia tecnologia) throws Exception{
 
 
-		if ( !(consultaPorNome(tecnologia.getNome()) == null)){
+		if ( !(this.consultaPorNome(tecnologia.getNome()) == null)){
 			throw new Exception("A tecnologia " + tecnologia.getNome() + " já foi cadastrada!");
 		}
 		
@@ -92,7 +92,7 @@ public class TecnologiaServico {
 	@SuppressWarnings("unchecked")
 	public List<Motivo> listarMotivos(Tecnologia tecnologia) {
 		try {
-			Query query = this.entityManager.createQuery("FROM Motivo m WHERE m.tecnologia =:param1 ORDER BY m.nome ASC");
+			Query query = this.entityManager.createQuery("FROM Motivo m WHERE m.tecnologia =:param1 ORDER BY m.nome");
 			query.setParameter("param1", tecnologia);
 			return query.getResultList();
 		} catch (NoResultException e) {
