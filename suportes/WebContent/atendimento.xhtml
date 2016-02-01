@@ -67,6 +67,7 @@
 	                 		var cargo = $(this).find('cargo').text();
 	                 		var supervisor = $(this).find('supervisor').text();
 	                 		var area = $(this).find('area').text();
+	                 		var pabx = $(this).find('pabx').text();
 
 
 		                	if(nome == 'Colaborador não encontrado!' || nome == ''){
@@ -78,6 +79,7 @@
 								$("#infoAtendente\\:cargo_colab").text(cargo);
 								$("#infoAtendente\\:supervisor_colab").text(supervisor);
 								$("#infoAtendente\\:area_colab").text(area);
+								$("#infoAtendente\\:pabx").text(pabx);
 
 								$("#infoAtendente").show();
 								$("#infoAtt").show();
@@ -179,6 +181,10 @@
 
 						<h:outputText value="Área:" />
 						<h:outputText id="area_colab" />
+						
+						<h:outputText value="Login Avaya:" />
+						<h:outputText id="pabx" />	
+										
 					</p:panelGrid>
 				</p:fieldset>
 
