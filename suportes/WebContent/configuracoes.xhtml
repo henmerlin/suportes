@@ -21,10 +21,126 @@
 
 	<ui:define name="conteudo">
 
+		<h:form>
+			<p:fieldset legend="Atendimentos" toggleable="true" toggleSpeed="500"
+				style="margin-bottom: 20px;">
+				<p:dataTable id="tbl" var="atend"
+					value="#{atendimentoBean.listar()}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+					paginator="true" rows="10" style="margin-bottom:20px">
+
+					<f:facet name="{Exporters}">
+						<h:commandLink>
+							<i class="fa fa-download"><p:dataExporter type="xls"
+									target="tbl" fileName="atendimentos" pageOnly="true" /> </i>
+
+						</h:commandLink>
+					</f:facet>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Acesso" />
+						</f:facet>
+						<h:outputText value="#{atend.acesso}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Acompanhamento" />
+						</f:facet>
+						<h:outputText value="#{atend.acompanhamento}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Colaborador" />
+						</f:facet>
+						<h:outputText value="#{atend.colaborador}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Data" />
+						</f:facet>
+						<h:outputText value="#{atend.data}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="D. Externa" />
+						</f:facet>
+						<h:outputText value="#{atend.demandaExterna}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Ferramentas" />
+						</f:facet>
+						<h:outputText value="#{atend.ferramentas}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Instancia" />
+						</f:facet>
+						<h:outputText value="#{atend.instancia}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Observação" />
+						</f:facet>
+						<h:outputText value="#{atend.observacao}" />
+					</p:column>
+
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Ordem" />
+						</f:facet>
+						<h:outputText value="#{atend.ordem}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Serviço" />
+						</f:facet>
+						<h:outputText value="#{atend.servico}" />
+					</p:column>
+
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Técnico" />
+						</f:facet>
+						<h:outputText value="#{atend.tecnico}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Motivo" />
+						</f:facet>
+						<h:outputText value="#{atend.motivo.nome}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Tecnologia" />
+						</f:facet>
+						<h:outputText value="#{atend.motivo.tecnologia.nome}" />
+					</p:column>
+
+
+				</p:dataTable>
+			</p:fieldset>
+		</h:form>
+
+
 		<p:fieldset legend="Tecnologia" toggleable="true" toggleSpeed="500"
 			style="margin-bottom: 20px;">
 			<p:panel header="Adicionar Tecnologia" style="margin-bottom: 15px;">
 				<h:form id="tecnologia">
+
 					<h:panelGrid columns="4" cellpadding="10">
 
 						<h:outputLabel for="n0" value="Nome:" style="margin-right: 10px;" />
@@ -35,6 +151,7 @@
 							value="Cadastrar" update="@form, lista, motivos" />
 						<p:message for="n0" />
 					</h:panelGrid>
+
 				</h:form>
 			</p:panel>
 
@@ -183,8 +300,6 @@
 			</h:form>
 
 		</p:fieldset>
-
-
 	</ui:define>
 </ui:composition>
 </html>

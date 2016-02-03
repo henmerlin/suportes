@@ -1,10 +1,13 @@
 package model;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -36,6 +39,16 @@ public class AtendimentoServico {
 			return (Atendimento) query.getSingleResult();
 		} catch (Exception e) {
 			return null;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Atendimento> listar() {
+		try {
+			Query query = this.entityManager.createQuery("FROM Atendimento a");
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return new ArrayList<Atendimento>();
 		}
 	}
 }

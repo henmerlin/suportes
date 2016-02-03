@@ -52,7 +52,7 @@ public class LoginBean implements Serializable{
 
 			FacesContext fc = FacesContext.getCurrentInstance();
 
-			Boolean restrito = (this.usuario.getNivel() < 7);
+			Boolean restrito = (this.usuario.getNivel() < 9);
 
 			if (restrito){
 
