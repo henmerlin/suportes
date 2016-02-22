@@ -26,8 +26,9 @@
 				style="margin-bottom: 20px;">
 				<p:dataTable id="tbl" var="atend" 
 					value="#{atendimentoBean.listar()}"
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-					rows="5" paginator="true" rowsPerPageTemplate="5,10,15" style="margin-bottom:20px">
+					rows="5" paginator="true" rowsPerPageTemplate="5,10,15" 
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters} {RowsPerPageDropdown}"
+					style="margin-bottom:20px">
 
 					<f:facet name="{Exporters}">
 						<h:commandLink>

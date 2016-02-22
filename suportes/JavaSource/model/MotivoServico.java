@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import javax.persistence.RollbackException;
 
 import entidades.Motivo;
+import entidades.Tecnologia;
 
 @Stateless
 public class MotivoServico {
@@ -25,8 +26,8 @@ public class MotivoServico {
 
 	public void cadastrar(Motivo motivo) throws Exception{
 
-		if (!(this.consultaPorNome(motivo.getNome()) == null)){
-			throw new Exception("O motivo " + motivo.getNome() + " já foi cadastrado à está tecnologia!");
+		if (!(this.consultaExistenciaMotivo(motivo.getNome(), motivo.getTecnologia()) == null)){
+			throw new Exception("O motivo " + motivo.getNome() + " já foi cadastrado à esta tecnologia!");
 		}
 		
 		this.entityManager.persist(motivo);
@@ -42,11 +43,12 @@ public class MotivoServico {
 		}
 	}
 
-	public Motivo consultaPorNome(String nome){
+	public Motivo consultaExistenciaMotivo(String nome, Tecnologia tecnologia){
 		
 		try {
-			Query query = this.entityManager.createQuery("FROM Motivo m WHERE m.nome =:param1");
+			Query query = this.entityManager.createQuery("FROM Motivo m WHERE m.nome =:param1 AND m.tecnologia =:param2");
 			query.setParameter("param1", nome);
+			query.setParameter("param2", tecnologia);
 			return (Motivo) query.getSingleResult();
 		} catch (Exception e) {
 			return null;
