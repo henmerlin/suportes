@@ -34,9 +34,11 @@ public class AtendimentoBean{
 	public Atendimento finalizar(){
 
 		this.servicoAtendimento.salvar(this.atendimento);
-		JSFUtil.addWarnMessage("Atendimento encerrado!");
+		JSFUtil.addInfoMessage("Atendimento encerrado!");
 		
-		return this.atendimento = new Atendimento();
+		this.atendimento = new Atendimento();
+		
+		return new Atendimento();
 	}
 	
 	public List<Atendimento> listar(){

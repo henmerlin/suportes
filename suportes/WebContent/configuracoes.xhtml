@@ -22,12 +22,12 @@
 	<ui:define name="conteudo">
 
 		<h:form>
-			<p:fieldset legend="Atendimentos" toggleable="true" toggleSpeed="500"
+			<p:fieldset legend="Atendimentos" toggleable="true" toggleSpeed="500" collapsed="true"
 				style="margin-bottom: 20px;">
-				<p:dataTable id="tbl" var="atend"
+				<p:dataTable id="tbl" var="atend" 
 					value="#{atendimentoBean.listar()}"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-					paginator="true" rows="10" style="margin-bottom:20px">
+					rows="5" paginator="true" rowsPerPageTemplate="5,10,15" style="margin-bottom:20px">
 
 					<f:facet name="{Exporters}">
 						<h:commandLink>
@@ -252,7 +252,7 @@
 					<p:column headerText="ID">
 						<h:outputText value="#{mot.id}" />
 					</p:column>
-					<p:column headerText="Nome">
+					<p:column headerText="Nome" sortBy="#{mot.nome}" filterBy="#{mot.nome}" filterMatchMode="contains">
 						<h:outputText value="#{mot.nome}" />
 					</p:column>
 

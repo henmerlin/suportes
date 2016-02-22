@@ -29,6 +29,7 @@ public class AtendimentoServico {
 		atendimento.setData(data);
 		this.entityManager.persist(atendimento);
 		
+		
 	}	
 	
 	public Atendimento obterAtendimento(Atendimento atendimento){
