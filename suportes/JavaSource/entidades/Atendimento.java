@@ -4,6 +4,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -39,9 +40,9 @@ public class Atendimento {
 	@NotNull
 	private Motivo motivo;
 
+	@Lob
 	private String observacao;
 
-	
 	private Date data;
 	
 	private Boolean acesso;
@@ -74,7 +75,6 @@ public class Atendimento {
 		this.servico = servico;
 	}
 
-
 	public String getAcompanhamento() {
 		return acompanhamento;
 	}
@@ -92,18 +92,13 @@ public class Atendimento {
 		this.instancia = instancia;
 	}
 
-
-
 	public String getOrdem() {
 		return ordem;
 	}
 
-
 	public void setOrdem(String ordem) {
 		this.ordem = ordem;
 	}
-
-
 
 	public String getObservacao() {
 		return observacao;
