@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="tb_efika_web_permissoes")
+@Table(name="suportes_usuario")
 public class Usuario {
 	
 	@Id
