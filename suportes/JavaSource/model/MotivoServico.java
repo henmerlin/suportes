@@ -64,6 +64,22 @@ public class MotivoServico {
 		}
 
 	}
+	
+	public void ativarInativarMotivo(Motivo motivo, Boolean status) throws Exception {
+		
+		try {		
+			
+			motivo.setAtivo(status);
+			
+			this.entityManager.merge(motivo);
+			
+		} catch (Exception e) {
+			
+			throw new Exception("Erro ao Ativar/Inativar motivo!");
+			
+		}
+		
+	}
 
 
 	public Motivo atualizar(Motivo motivo) throws Exception{

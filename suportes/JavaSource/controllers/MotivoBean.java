@@ -47,6 +47,20 @@ public class MotivoBean{
 		}
 	}
 	
+	public void ativarInativarMotivo(Motivo motivo, Boolean status) {
+		
+		try {
+			
+			this.servicoMotivo.ativarInativarMotivo(motivo, status);
+			
+		} catch (Exception e) {
+			
+			JSFUtil.addErrorMessage(e.getMessage());
+			
+		}
+		
+	}
+	
 	
 	public List<Motivo> listar(){
 

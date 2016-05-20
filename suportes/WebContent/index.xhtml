@@ -11,18 +11,31 @@
 		 Dashboard
 	</ui:define>
 	<ui:define name="tituloPrincipal">
-		<i class="fa fa-dashboard"> </i> Dashboard</ui:define>
+		<i class="fa fa-home"> </i> Dashboard</ui:define>
 	<ui:define name="tituloSecundario"></ui:define>
 
 	<ui:define name="botoesAcao"></ui:define>
+	
+	<ui:define name="eventos">
+		<f:metadata>
+			<f:event listener="#{loginBean.validarLogin()}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
 
 	<ui:define name="conteudo">
 
-		<p:panel id="basic" header="Início"
-			style="margin-bottom:20px">
+		<p:panel id="basic" header="Início" style="margin-bottom:20px">
 			<h:panelGrid columns="2" cellpadding="10">
-				<h:outputText value="Ferramenta de mapeamento dos atendimentos prestados às equipes de Atendimento do Centro de Operações." />
+				<h:outputText
+					value="Ferramenta de mapeamento dos atendimentos prestados às equipes de Atendimento do Centro de Operações." />
 			</h:panelGrid>
+
+			<h:form>
+				<p:outputPanel rendered="#{loginBean.logado}">
+					<p:commandButton value="Sair" action="#{loginBean.deslogar()}"
+						update="@all" />
+				</p:outputPanel>
+			</h:form>
 		</p:panel>
 
 	</ui:define>

@@ -4,7 +4,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -20,7 +20,8 @@ public class Atendimento {
 	@GeneratedValue
 	private Integer Id;
 	
-	private String tecnico;
+	@ManyToOne
+	private UsuarioEfika tecnico;
 
 	@NotEmpty
 	@Length(min=8, max=10, message="Padrão: G00XXXXX.")
@@ -42,8 +43,8 @@ public class Atendimento {
 	@NotNull
 	private Motivo motivo;
 
-	@Lob
-	private String observacao;
+	@OneToOne
+	private ObservacaoAtendimento observacao;
 
 	private Date data;
 	
@@ -100,15 +101,17 @@ public class Atendimento {
 
 	public void setOrdem(String ordem) {
 		this.ordem = ordem;
-	}
+	}		
 
-	public String getObservacao() {
+	public ObservacaoAtendimento getObservacao() {
 		return observacao;
 	}
 
-	public void setObservacao(String observacao) {
+
+	public void setObservacao(ObservacaoAtendimento observacao) {
 		this.observacao = observacao;
 	}
+
 
 	public Motivo getMotivo() {
 		return motivo;
@@ -133,16 +136,16 @@ public class Atendimento {
 
 	public void setId(Integer id) {
 		Id = id;
-	}
+	}	
 
-	public String getTecnico() {
+	public UsuarioEfika getTecnico() {
 		return tecnico;
 	}
 
-	public void setTecnico(String tecnico) {
+
+	public void setTecnico(UsuarioEfika tecnico) {
 		this.tecnico = tecnico;
 	}
-
 
 	public Date getData() {
 		return data;

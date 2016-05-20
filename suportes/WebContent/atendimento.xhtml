@@ -16,6 +16,12 @@
 
 	<ui:define name="botoesAcao"></ui:define>
 
+	<ui:define name="eventos">
+		<f:metadata>
+			<f:event listener="#{loginBean.validarLogin()}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
 	<ui:define name="conteudo">
 
 		<script>
@@ -181,10 +187,10 @@
 
 						<h:outputText value="Área:" />
 						<h:outputText id="area_colab" />
-						
+
 						<h:outputText value="Login Avaya:" />
-						<h:outputText id="pabx" />	
-										
+						<h:outputText id="pabx" />
+
 					</p:panelGrid>
 				</p:fieldset>
 
@@ -306,9 +312,6 @@
 						<h:outputText value=" Não aderiu às ferramentas" />
 						<br />
 
-
-
-
 					</p:fieldset>
 
 					<p:message for="acesso" />
@@ -316,20 +319,12 @@
 
 					<p:outputLabel value="Observação: " />
 					<p:inputTextarea id="observacao"
-						value="#{atendimentoBean.atendimento.observacao}" />
+						value="#{atendimentoBean.observacao.observacao}" />
 					<p:message for="observacao" />
 
-					<h:inputHidden id="matricula"
-						value="#{atendimentoBean.atendimento.tecnico}" />
-
-
-					<p:row></p:row>
-					<p:row></p:row>
 					<p:row>
 						<p:column colspan="3">
-							<p:commandButton action="#{atendimentoBean.finalizar()}"
-								onclick="matricula('#{loginBean.usuario.login}');"
-								update="@form" value="Finalizar!" />
+							<p:commandButton action="#{atendimentoBean.finalizar()}" update="@all" value="Finalizar!" />
 						</p:column>
 					</p:row>
 

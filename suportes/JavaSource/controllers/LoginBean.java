@@ -6,101 +6,124 @@ import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
-import entidades.Usuario;
+import entidades.UsuarioEfika;
 import model.LoginServico;
 import util.JSFUtil;
+import webservices.Usuario;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 @Named
 @SessionScoped
 public class LoginBean implements Serializable{
 
-	private static final long serialVersionUID = -3645902541993768134L;
+	private UsuarioEfika usuario;
 
-	private Usuario usuario;
+	private Usuario usuarioWS;
+
+	private String senha;
 
 	@EJB
 	private LoginServico servicoLogin;
 
-	private Boolean logado;
+	private boolean logado;
 
 	public LoginBean() {
-		this.usuario = new Usuario();
+		this.usuario = new UsuarioEfika();
 		this.logado = false;
 	}
-
-	public void validarLogin(){
-
+	
+	public void validarLogin() {
+				
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		if (!this.logado){
-
-			ConfigurableNavigationHandler nav  = (ConfigurableNavigationHandler) 
+			ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler)
 					fc.getApplication().getNavigationHandler();
 			nav.performNavigation("login.jsf");
-
 		}
+	}
+
+	public Boolean is_Admin(){
+
+		return this.usuarioWS.getNivel() > 9;
 
 	}
 
-	public void validaAdmin(){
-
-		try{
-			
+	public void validaAdmin() {
+		try {
 			this.validarLogin();
 
 			FacesContext fc = FacesContext.getCurrentInstance();
 
-			Boolean restrito = (this.usuario.getNivel() < 9);
-
-			if (restrito){
-
+			if(!this.is_Admin()){
 				ConfigurableNavigationHandler nav  = (ConfigurableNavigationHandler) 
 						fc.getApplication().getNavigationHandler();
-				nav.performNavigation("restrito.jsf");			
-
+				nav.performNavigation("restrito.jsf");
 			}
-			
 		} catch (Exception e) {
-			this.usuario = new Usuario();
+			this.usuario = new UsuarioEfika();
 		}
-
-
 	}
 
+	public String logar() {
 
-	public String logar(){
+		try {		
 
-		try {
+			this.usuarioWS = this.servicoLogin.buscaLoginWS(this.usuario.getLogin());			
+			this.servicoLogin.autenticaLogin(this.usuarioWS, this.senha);
 
-			this.usuario = servicoLogin.consultar(usuario.getLogin(), usuario.getSenha());
-			this.logado = true;
-			return "index.jsf";
+			this.logado = true;			
+			return "index.jsf"; 
 
 		} catch (Exception e) {
 
-			JSFUtil.addWarnMessage(e.getMessage());
-			this.usuario = new Usuario();
+			JSFUtil.addErrorMessage(e.getMessage());
+			this.usuario = new UsuarioEfika();
 			return "";
+
 		}
+
 	}
 
-	public Usuario getUsuario() {
+	public void deslogar() {
+		
+		this.usuario = new UsuarioEfika();
+		this.logado = false;
+		
+	}
+
+	public UsuarioEfika getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(UsuarioEfika usuario) {
 		this.usuario = usuario;
 	}
 
-	public Boolean getLogado() {
+	public boolean isLogado() {
 		return logado;
 	}
 
-	public void setLogado(Boolean logado) {
+	public void setLogado(boolean logado) {
 		this.logado = logado;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public Usuario getUsuarioWS() {
+		return usuarioWS;
+	}
+
+	public void setUsuarioWS(Usuario usuarioWS) {
+		this.usuarioWS = usuarioWS;
+	}
 
 }

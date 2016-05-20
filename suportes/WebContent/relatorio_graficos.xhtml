@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/recursos/template/template.xhtml">
+
+	<ui:define name="tituloPagina">
+		 Dashboard
+	</ui:define>
+	<ui:define name="tituloPrincipal">
+		<i class="fa fa-line-chart"> </i> Relatorios</ui:define>
+	<ui:define name="tituloSecundario"></ui:define>
+
+	<ui:define name="botoesAcao"></ui:define>
+
+	<ui:define name="eventos">
+		<f:metadata>
+			<f:event listener="#{loginBean.validarLogin()}" type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form>
+		
+			<h:panelGrid columns="3" style="margin-bottom: 15px;">
+				<p:outputLabel for="dataInicio" value="Data Início: " />
+				<p:outputLabel for="dataFim" value="Data Fim: " />
+				<p:outputLabel for="busca" value="" />
+				<p:calendar id="dataInicio" value="#{relatorioBean.dataInicio}"
+					pattern="dd/MM/yyyy" mask="true" />
+				<p:calendar id="dataFim" value="#{relatorioBean.dataFim}"
+					pattern="dd/MM/yyyy" mask="true" />
+
+				<p:commandButton id="busca" value="Buscar"
+					action="#{relatorioBean.atualizaData()}" update="graficoOrdem"/>
+
+			</h:panelGrid>
+			
+			<p:chart id="graficoOrdem" type="donut" model="#{relatorioBean.chartModel1}"
+			style="width:400px; height:300px" />
+			
+			
+		</h:form>
+
+		
+
+
+	</ui:define>
+
+</ui:composition>
+</html>

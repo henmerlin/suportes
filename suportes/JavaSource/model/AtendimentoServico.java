@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entidades.Atendimento;
+import entidades.ObservacaoAtendimento;
 
 @Stateless
 public class AtendimentoServico {
@@ -23,10 +24,13 @@ public class AtendimentoServico {
 
 	}
 	
-	public void salvar(Atendimento atendimento){
+	public void salvar(Atendimento atendimento, ObservacaoAtendimento observacao){
+					
+		this.entityManager.persist(observacao);
 		
 		Date data = new Date();
-		atendimento.setData(data);
+		atendimento.setData(data);		
+		atendimento.setObservacao(observacao);		
 		this.entityManager.persist(atendimento);
 		
 		

@@ -16,127 +16,13 @@
 	<ui:define name="botoesAcao"></ui:define>
 
 	<ui:define name="eventos">
-		<f:event listener="#{loginBean.validaAdmin()}" type="preRenderView" />
+		<f:metadata>
+			<f:event listener="#{loginBean.validarLogin()}" type="preRenderView"></f:event>
+		</f:metadata>
 	</ui:define>
 
 	<ui:define name="conteudo">
-
-		<h:form>
-			<p:fieldset legend="Atendimentos" toggleable="true" toggleSpeed="500" collapsed="true"
-				style="margin-bottom: 20px;">
-				<p:dataTable id="tbl" var="atend" 
-					value="#{atendimentoBean.listar()}"
-					rows="5" paginator="true" rowsPerPageTemplate="5,10,15" 
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters} {RowsPerPageDropdown}"
-					style="margin-bottom:20px">
-
-					<f:facet name="{Exporters}">
-						<h:commandLink>
-							<i class="fa fa-download"><p:dataExporter type="xls"
-									target="tbl" fileName="atendimentos" pageOnly="false" /> </i>
-
-						</h:commandLink>
-					</f:facet>
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Acesso" />
-						</f:facet>
-						<h:outputText value="#{atend.acesso}" />
-					</p:column>
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Acompanhamento" />
-						</f:facet>
-						<h:outputText value="#{atend.acompanhamento}" />
-					</p:column>
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Colaborador" />
-						</f:facet>
-						<h:outputText value="#{atend.colaborador}" />
-					</p:column>
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Data" />
-						</f:facet>
-						<h:outputText value="#{atend.data}" />
-					</p:column>
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="D. Externa" />
-						</f:facet>
-						<h:outputText value="#{atend.demandaExterna}" />
-					</p:column>
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Ferramentas" />
-						</f:facet>
-						<h:outputText value="#{atend.ferramentas}" />
-					</p:column>
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Instancia" />
-						</f:facet>
-						<h:outputText value="#{atend.instancia}" />
-					</p:column>
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Observação" />
-						</f:facet>
-						<h:outputText value="#{atend.observacao}" />
-					</p:column>
-
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Ordem" />
-						</f:facet>
-						<h:outputText value="#{atend.ordem}" />
-					</p:column>
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Serviço" />
-						</f:facet>
-						<h:outputText value="#{atend.servico}" />
-					</p:column>
-
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Técnico" />
-						</f:facet>
-						<h:outputText value="#{atend.tecnico}" />
-					</p:column>
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Motivo" />
-						</f:facet>
-						<h:outputText value="#{atend.motivo.nome}" />
-					</p:column>
-
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Tecnologia" />
-						</f:facet>
-						<h:outputText value="#{atend.motivo.tecnologia.nome}" />
-					</p:column>
-
-
-				</p:dataTable>
-			</p:fieldset>
-		</h:form>
-
-
+	
 		<p:fieldset legend="Tecnologia" toggleable="true" toggleSpeed="500"
 			style="margin-bottom: 20px;">
 			<p:panel header="Adicionar Tecnologia" style="margin-bottom: 15px;">
@@ -253,7 +139,8 @@
 					<p:column headerText="ID">
 						<h:outputText value="#{mot.id}" />
 					</p:column>
-					<p:column headerText="Nome" sortBy="#{mot.nome}" filterBy="#{mot.nome}" filterMatchMode="contains">
+					<p:column headerText="Nome" sortBy="#{mot.nome}"
+						filterBy="#{mot.nome}" filterMatchMode="contains">
 						<h:outputText value="#{mot.nome}" />
 					</p:column>
 
@@ -262,9 +149,10 @@
 					</p:column>
 
 					<p:column headerText="Ação" style="text-align: center;">
-						<p:commandButton value="Excluir"
-							action="#{motivoBean.excluir(mot)}" update="fomr2">
-						</p:commandButton>
+					
+						<p:commandButton rendered="#{mot.ativo}" value="Desativar" action="#{motivoBean.ativarInativarMotivo(mot, false)}" update="fomr2"/>
+						<p:commandButton rendered="#{!mot.ativo}" value="Ativar" action="#{motivoBean.ativarInativarMotivo(mot, true)}" update="fomr2"/>
+						
 					</p:column>
 
 					<p:column>
@@ -294,9 +182,6 @@
 						</h:panelGrid>
 					</p:outputPanel>
 				</p:dialog>
-
-
-
 
 			</h:form>
 

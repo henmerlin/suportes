@@ -92,8 +92,9 @@ public class TecnologiaServico {
 	@SuppressWarnings("unchecked")
 	public List<Motivo> listarMotivos(Tecnologia tecnologia) {
 		try {
-			Query query = this.entityManager.createQuery("FROM Motivo m WHERE m.tecnologia =:param1 ORDER BY m.nome");
+			Query query = this.entityManager.createQuery("FROM Motivo m WHERE m.tecnologia =:param1 AND m.ativo =:param2 ORDER BY m.nome");
 			query.setParameter("param1", tecnologia);
+			query.setParameter("param2", true);
 			return query.getResultList();
 		} catch (NoResultException e) {
 			return new ArrayList<Motivo>();

@@ -23,6 +23,8 @@ public class Motivo{
 	@NotNull
 	@ManyToOne(fetch=FetchType.EAGER)
 	private Tecnologia tecnologia;
+	
+	private Boolean ativo = true;
 
 	public Motivo() {
 
@@ -50,6 +52,14 @@ public class Motivo{
 
 	public void setTecnologia(Tecnologia tecnologia) {
 		this.tecnologia = tecnologia;
+	}	
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	@Override

@@ -1,30 +1,24 @@
 package entidades;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="suportes_usuario")
-public class Usuario {
+public class UsuarioEfika {
 	
 	@Id
 	@NotEmpty
-	@Column(name="LOGIN")
 	private String login;
-	
-	@NotEmpty
-	@Column(name="SENHA")
-	private String senha;
-	
-	@NotEmpty
-	@Column(name="NIVEL")
+		
+	@NotNull
 	private Integer nivel;
 		
-	public Usuario() {
+	public UsuarioEfika() {
 	
 	}
 	
@@ -35,15 +29,6 @@ public class Usuario {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
 
 	public Integer getNivel() {
 		return nivel;
@@ -70,7 +55,7 @@ public class Usuario {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		UsuarioEfika other = (UsuarioEfika) obj;
 		if (login == null) {
 			if (other.login != null)
 				return false;
