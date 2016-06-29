@@ -23,13 +23,17 @@ public class AtendimentoServico {
 
 	}
 	
-	public void salvar(Atendimento atendimento){
+	public void salvar(Atendimento atendimento) throws Exception{
+		
+		if(atendimento.getAcesso().equals(false) 
+				&& atendimento.getDemandaExterna().equals(false)
+				&& atendimento.getFerramentas().equals(false)){
+			throw new Exception("Selecione uma opção de causa.");
+		}
 		
 		Date data = new Date();
 		atendimento.setData(data);
 		this.entityManager.persist(atendimento);
-		
-		
 	}	
 	
 	public Atendimento obterAtendimento(Atendimento atendimento){

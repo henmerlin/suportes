@@ -32,11 +32,17 @@ public class AtendimentoBean{
 	}
 
 	public Atendimento finalizar(){
-
-		this.servicoAtendimento.salvar(this.atendimento);
-		JSFUtil.addInfoMessage("Atendimento encerrado!");
 		
-		this.atendimento = new Atendimento();
+		try {
+			
+			this.servicoAtendimento.salvar(this.atendimento);
+			JSFUtil.addInfoMessage("Atendimento encerrado!");
+			this.atendimento = new Atendimento();
+			
+		} catch (Exception e) {
+			JSFUtil.addErrorMessage(e.getMessage());
+		}
+	
 		
 		return new Atendimento();
 	}
