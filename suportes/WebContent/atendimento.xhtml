@@ -1,345 +1,350 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
-
-<ui:composition template="/recursos/template/template.xhtml">
-
-	<ui:define name="tituloPagina">
-		Atendimento
-	</ui:define>
-	<ui:define name="tituloPrincipal">
-		<i class="fa fa-list-alt"> </i> Atendimento</ui:define>
-	<ui:define name="tituloSecundario">Suporte Técnico</ui:define>
-
-	<ui:define name="botoesAcao"></ui:define>
-
-	<ui:define name="conteudo">
-
-		<script>
-
-			$(document).ready(function(){ 
-					
-	        });
-
-			function consultaAcomp(){
-
-				var login = $("#infoAtt\\:loginAcompanhamento").val();
-				
-	            $.ajax({ 
-	                type: 'GET',
-	                data: 
-	                'login=' +  login,
-	                url:  'http://efika/web/services/colaborador/',
-	                dataType: 'xml',
-	                success: function(xml){
-	
-	                	$(xml).find('colaborador').each(function(){ 
-	
-	                 		var nome = $(this).find('nome').text();
-
-	                 		$("#infoAtt\\:nomeAcomp").text(nome);
-	                	});
-
-	                }
-               	});
-
-	                
-			}			
-	
-	    	function consultaOperador(){
-
-				var login = $("#infoAtt\\:loginOperador").val();
-					
-	            $.ajax({ 
-	                type: 'GET',
-	                data: 
-	                'login=' +  login,
-	                url:  'http://efika/web/services/colaborador/',
-	                dataType: 'xml',
-	                success: function(xml){
-	
-	                	$(xml).find('colaborador').each(function(){ 
-	
-	                 		var nome = $(this).find('nome').text();
-	                 		var cargo = $(this).find('cargo').text();
-	                 		var supervisor = $(this).find('supervisor').text();
-	                 		var area = $(this).find('area').text();
-	                 		var pabx = $(this).find('pabx').text();
-
-
-		                	if(nome == 'Colaborador não encontrado!' || nome == ''){
-		        				$("#infoAtendente").hide();
-		                		
-				            }else{
-					            
-				            	$("#infoAtendente\\:nome_colab").text(nome);
-								$("#infoAtendente\\:cargo_colab").text(cargo);
-								$("#infoAtendente\\:supervisor_colab").text(supervisor);
-								$("#infoAtendente\\:area_colab").text(area);
-								$("#infoAtendente\\:pabx").text(pabx);
-
-								$("#infoAtendente").show();
-								$("#infoAtt").show();
-								
-				          	}
-	
-							
-	
-	                	});
-	                }
-	            });
-	
-	
-	            $.ajax({ 
-	                type: 'GET',
-	                data: 
-	                'login=' +  login,
-	                url:  'http://efika/web/services/comandos/?max=5',
-	                dataType: 'xml',
-	                success: function(xml){
-	
-	                	var comandos = [];
-	                	
-	                	$(xml).find('comando').each(function(){ 
-	                        	
-	                		var nome = $(this).attr('nome');
-	                		var data = $(this).attr('data');
-	
-							comandos.push(nome + ' - ' + data + '<br/>');
-	                	});
-
-	    
-			           $("#infoAtendente\\:comandos").html(comandos);
-
-	                	
-	                }
-	            });
-	
-	            $.ajax({ 
-	                type: 'GET',
-	                data: 
-	                "login=" +  login,
-	                url:  'http://efika/web/services/materiais/?max=5',
-	                dataType: 'xml',
-	                success: function(xml){
-	
-	                	var comandos = [];
-	                	
-	                	$(xml).find('material').each(function(){ 
-	                        	
-	                		var titulo = $(this).attr('titulo');
-	                		var data = $(this).attr('data');
-	
-							comandos.push(titulo + ' - ' + data + '<br/>');
-	                	});
-	
-						$("#infoAtendente\\:materiais").html(comandos);
-
-						
-	                }
-	            });
-				            
-	        }
-
-	    	function preencheNA(){
-	    		$('#infoAtt\\:loginAcompanhamento').val('N/A');    		
-		    }
-	        	
-	        function iniciarAtendimento() {
-	            
-	        	$('#infoAtendente\\:iniciar').hide();
-	        	$('#infoAtendente\\:formularioMotivo').show();
-	        	
-			}
-
-			function matricula(login) {
-
-				$('#infoAtt\\:matricula').val(login);
-			}
-
-
-		</script>
-
-		<h:form id="infoAtendente" name="infoAtendente" style="display: none;">
-
-			<h:panelGrid columns="1"
-				style="width: 38%; float: right; margin-bottom: 15px;">
-				<p:fieldset legend="Informações do Atendente" toggleable="true"
-					toggleSpeed="500" style="margin-top: 15px;">
-					<p:panelGrid columns="2" style="margin-bottom: 10px;">
-						<h:outputText value="Nome:" />
-						<h:outputText id="nome_colab" />
-
-						<h:outputText value="Cargo:" />
-						<h:outputText id="cargo_colab" />
-
-						<h:outputText value="Supervisão:" />
-						<h:outputText id="supervisor_colab" />
-
-						<h:outputText value="Área:" />
-						<h:outputText id="area_colab" />
-						
-						<h:outputText value="Login Avaya:" />
-						<h:outputText id="pabx" />	
-										
-					</p:panelGrid>
-				</p:fieldset>
-
-				<p:fieldset legend="Uso Efika" toggleable="true" toggleSpeed="500"
-					style="margin-top: 15px;">
-					<h:panelGrid>
-						<p:panel header="Materiais" style="width: 100%;">
-							<h:outputText id="materiais" />
-						</p:panel>
-						<p:panel header="Comandos" style="width: 100%; margin-top: 15px;">
-							<h:outputText id="comandos" />
-						</p:panel>
-					</h:panelGrid>
-				</p:fieldset>
-
-
-
-			</h:panelGrid>
-
-
-		</h:form>
-
-
-		<!--  FORMULÁRIO DO ATENDIMENTO -->
-		<h:form id="infoAtt">
-			<p:fieldset id="atendimento" legend="Atendimento" toggleable="false"
-				toggleSpeed="500" style="float: left; width: 60%; margin-top: 15px;">
-				<h:panelGrid columns="3" cellpadding="100" cellspacing="10"
-					style="padding-top: 10px;">
-
-					<p:outputLabel for="loginOperador" value="Login Operador:" />
-					<p:inputText id="loginOperador"
-						value="#{atendimentoBean.atendimento.colaborador}"
-						onblur="consultaOperador();" />
-					<p:message for="loginOperador" />
-
-					<p:outputLabel for="loginAcompanhamento"
-						value="Login Acompanhamento: " />
-					<p:inputText id="loginAcompanhamento"
-						value="#{atendimentoBean.atendimento.acompanhamento}"
-						onblur="consultaAcomp();" ondblclick="preencheNA();" />
-					<p:message for="loginAcompanhamento" />
-
-					<p:outputLabel />
-					<p:outputLabel id="nomeAcomp" escape="false" />
-					<p:outputLabel />
-
-
-
-					<p:outputLabel for="n0" value="Instância: " />
-					<p:inputMask id="n0" mask="9999999999"
-						value="#{atendimentoBean.atendimento.instancia}" />
-					<p:message for="n0" />
-
-					<p:outputLabel for="n9" value="Transmissão: " />
-					<p:selectOneButton id="n9"
-						value="#{atendimentoBean.atendimento.servico}">
-						<f:selectItem itemLabel="Metalico" itemValue="Metalico" />
-						<f:selectItem itemLabel="GPON" itemValue="GPON" />
-						<f:selectItem itemLabel="FTTH" itemValue="FTTH" />
-					</p:selectOneButton>
-					<p:message for="n9" />
-
-
-
-					<p:outputLabel for="n1" value="Ordem: " />
-					<p:selectOneButton id="n1"
-						value="#{atendimentoBean.atendimento.ordem}">
-						<f:selectItem itemLabel="BA" itemValue="BA" />
-						<f:selectItem itemLabel="TT" itemValue="TT" />
-					</p:selectOneButton>
-					<p:message for="n1" />
-
-
-					<p:outputLabel for="n3" value="Serviço: " />
-					<p:selectOneMenu id="n3" converter="omnifaces.SelectItemsConverter"
-						value="#{subSelectBean.tecnologia}" style="width: 150px;">
-						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-						<f:selectItems value="#{subSelectBean.listar()}" var="tecnologia"
-							itemLabel="#{tecnologia.nome}" itemValue="#{tecnologia}" />
-						<p:ajax
-							listener="#{subSelectBean.listarMotivos(subSelectBean.tecnologia)}"
-							update="n2" />
-
-					</p:selectOneMenu>
-					<p:message for="n3" />
-
-
-					<p:outputLabel for="n2" value="Motivo: " />
-					<p:selectOneMenu id="n2" filter="true"
-						converter="omnifaces.SelectItemsConverter"
-						value="#{atendimentoBean.atendimento.motivo}"
-						filterMatchMode="contains" style="width: 100%;">
-						<f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-						<f:selectItems id="opcoes"
-							value="#{subSelectBean.tecnologia.motivos}" var="motivo"
-							itemLabel="#{motivo.nome}" itemValue="#{motivo}" />
-					</p:selectOneMenu>
-					<p:message for="n2" />
-
-					<h:outputLabel value="Causa:" />
-
-
-					<p:fieldset style="margin-bottom: 20px;">
-
-						<p:selectBooleanCheckbox
-							value="#{atendimentoBean.atendimento.demandaExterna}" />
-						<h:outputText value=" Demanda Externa" />
-						<br />
-
-
-						<p:selectBooleanCheckbox id="acesso"
-							value="#{atendimentoBean.atendimento.acesso}" />
-						<h:outputText value=" Acesso" />
-						<br />
-
-						<p:selectBooleanCheckbox
-							value="#{atendimentoBean.atendimento.ferramentas}" />
-						<h:outputText value=" Não aderiu às ferramentas" />
-						<br />
-
-
-
-
-					</p:fieldset>
-
-					<p:message for="acesso" />
-
-
-					<p:outputLabel value="Observação: " />
-					<p:inputTextarea id="observacao"
-						value="#{atendimentoBean.atendimento.observacao}" />
-					<p:message for="observacao" />
-
-					<h:inputHidden id="matricula"
-						value="#{atendimentoBean.atendimento.tecnico}" />
-
-
-					<p:row></p:row>
-					<p:row></p:row>
-					<p:row>
-						<p:column colspan="3">
-							<p:commandButton action="#{atendimentoBean.finalizar()}"
-								onclick="matricula('#{loginBean.usuario.login}');"
-								update="@form" value="Finalizar!" />
-						</p:column>
-					</p:row>
-
-				</h:panelGrid>
-
-			</p:fieldset>
-		</h:form>
-
-	</ui:define>
-</ui:composition>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/recursos/template/template.xhtml">
+
+        <ui:define name="tituloPagina">
+            Atendimento
+        </ui:define>
+        <ui:define name="tituloPrincipal">
+            <i class="fa fa-list-alt"> </i> Atendimento</ui:define>
+        <ui:define name="tituloSecundario">Suporte Técnico</ui:define>
+
+        <ui:define name="botoesAcao"></ui:define>
+
+        <ui:define name="conteudo">
+
+            <script>
+
+                $(document).ready(function() {
+
+                });
+
+                function consultaAcomp() {
+
+                    var login = $("#infoAtt\\:loginAcompanhamento").val();
+
+                    $.ajax({
+                        type: 'GET',
+                        data:
+                                'login=' + login,
+                        url: 'http://efika/web/services/colaborador/',
+                        dataType: 'xml',
+                        success: function(xml) {
+
+                            $(xml).find('colaborador').each(function() {
+
+                                var nome = $(this).find('nome').text();
+
+                                $("#infoAtt\\:nomeAcomp").text(nome);
+                            });
+
+                        }
+                    });
+
+
+                }
+
+                function consultaOperador() {
+
+                    var login = $("#infoAtt\\:loginOperador").val();
+
+                    $.ajax({
+                        type: 'GET',
+                        data:
+                                'login=' + login,
+                        url: 'http://efika/web/services/colaborador/',
+                        dataType: 'xml',
+                        success: function(xml) {
+
+                            $(xml).find('colaborador').each(function() {
+
+                                var nome = $(this).find('nome').text();
+                                var cargo = $(this).find('cargo').text();
+                                var supervisor = $(this).find('supervisor').text();
+                                var area = $(this).find('area').text();
+                                var pabx = $(this).find('pabx').text();
+
+
+                                if (nome == "Colaborador não encontrado!" || nome == '') {
+                                    $("#infoAtendente").hide();
+
+                                } else {
+
+                                    $("#infoAtendente\\:nome_colab").text(nome);
+                                    $("#infoAtendente\\:cargo_colab").text(cargo);
+                                    $("#infoAtendente\\:supervisor_colab").text(supervisor);
+                                    $("#infoAtendente\\:area_colab").text(area);
+                                    $("#infoAtendente\\:pabx").text(pabx);
+
+                                    $("#infoAtendente").show();
+                                    $("#infoAtt").show();
+
+                                }
+
+
+
+                            });
+                        }
+                    });
+
+
+                    $.ajax({
+                        type: 'GET',
+                        data:
+                                'login=' + login,
+                        url: 'http://efika/web/services/comandos/?max=5',
+                        dataType: 'xml',
+                        success: function(xml) {
+
+                            var comandos = [];
+
+                            $(xml).find('comando').each(function() {
+
+                                var nome = $(this).attr('nome');
+                                var data = $(this).attr('data');
+
+                                comandos.push(nome + ' - ' + data + '<br/>');
+                            });
+
+
+                            $("#infoAtendente\\:comandos").html(comandos);
+
+
+                        }
+                    });
+
+                    $.ajax({
+                        type: 'GET',
+                        data:
+                                "login=" + login,
+                        url: 'http://efika/web/services/materiais/?max=5',
+                        dataType: 'xml',
+                        success: function(xml) {
+
+                            var comandos = [];
+
+                            $(xml).find('material').each(function() {
+
+                                var titulo = $(this).attr('titulo');
+                                var data = $(this).attr('data');
+
+                                comandos.push(titulo + ' - ' + data + '<br/>');
+                            });
+
+                            $("#infoAtendente\\:materiais").html(comandos);
+
+
+                        }
+                    });
+
+                }
+
+                function preencheNA() {
+                    $('#infoAtt\\:loginAcompanhamento').val('N/A');
+                }
+
+                function iniciarAtendimento() {
+
+                    $('#infoAtendente\\:iniciar').hide();
+                    $('#infoAtendente\\:formularioMotivo').show();
+
+                }
+
+                function matricula(login) {
+
+                    $('#infoAtt\\:matricula').val(login);
+                }
+
+
+            </script>
+
+            <h:form id="infoAtendente" name="infoAtendente" style="display: none;">
+
+                <h:panelGrid columns="1"
+                             style="width: 38%; float: right; margin-bottom: 15px;">
+                    <p:fieldset legend="Informações do Atendente" toggleable="true"
+                                toggleSpeed="500" style="margin-top: 15px;">
+                        <p:panelGrid columns="2" style="margin-bottom: 10px;">
+                            <h:outputText value="Nome:" />
+                            <h:outputText id="nome_colab" />
+
+                            <h:outputText value="Cargo:" />
+                            <h:outputText id="cargo_colab" />
+
+                            <h:outputText value="Supervisão:" />
+                            <h:outputText id="supervisor_colab" />
+
+                            <h:outputText value="Área:" />
+                            <h:outputText id="area_colab" />
+
+                            <h:outputText value="Login Avaya:" />
+                            <h:outputText id="pabx" />
+
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:fieldset legend="Uso Efika" toggleable="true" toggleSpeed="500"
+                                style="margin-top: 15px;">
+                        <h:panelGrid>
+                            <p:panel header="Materiais" style="width: 100%;">
+                                <h:outputText id="materiais" />
+                            </p:panel>
+                            <p:panel header="Comandos" style="width: 100%; margin-top: 15px;">
+                                <h:outputText id="comandos" />
+                            </p:panel>
+                        </h:panelGrid>
+                    </p:fieldset>
+
+
+
+                </h:panelGrid>
+
+
+            </h:form>
+
+
+            <!--  FORMULÃRIO DO ATENDIMENTO -->
+            <h:form id="infoAtt">
+                <p:fieldset id="atendimento" legend="Atendimento" toggleable="false"
+                            toggleSpeed="500" style="float: left; width: 60%; margin-top: 15px;">
+                    <h:panelGrid columns="3" cellpadding="100" cellspacing="10"
+                                 style="padding-top: 10px;">
+
+                        <p:outputLabel for="loginOperador" value="Login Operador:" />
+                        <p:inputText id="loginOperador"
+                                     value="#{atendimentoBean.atendimento.colaborador}"
+                                     onblur="consultaOperador();" />
+                        <p:message for="loginOperador" />
+
+                        <p:outputLabel for="loginAcompanhamento"
+                                       value="Login Acompanhamento: " />
+                        <p:inputText id="loginAcompanhamento"
+                                     value="#{atendimentoBean.atendimento.acompanhamento}"
+                                     onblur="consultaAcomp();" ondblclick="preencheNA();" />
+                        <p:message for="loginAcompanhamento" />
+
+                        <p:outputLabel />
+                        <p:outputLabel id="nomeAcomp" escape="false" />
+                        <p:outputLabel />
+
+
+
+                        <p:outputLabel for="n0" value="Instância: " />
+                        <p:inputMask id="n0" mask="9999999999"
+                                     value="#{atendimentoBean.atendimento.instancia}" />
+                        <p:message for="n0" />
+
+                        <p:outputLabel for="n9" value="Transmissão: " />
+                        <p:selectOneButton id="n9"
+                                           value="#{atendimentoBean.atendimento.servico}">
+                            <f:selectItem itemLabel="Metalico" itemValue="Metalico" />
+                            <f:selectItem itemLabel="GPON" itemValue="GPON" />
+                            <f:selectItem itemLabel="FTTH" itemValue="FTTH" />
+                        </p:selectOneButton>
+                        <p:message for="n9" />
+
+
+
+                        <p:outputLabel for="n1" value="Ordem: " />
+                        <p:selectOneButton id="n1"
+                                           value="#{atendimentoBean.atendimento.ordem}">
+                            <f:selectItem itemLabel="BA" itemValue="BA" />
+                            <f:selectItem itemLabel="TT" itemValue="TT" />
+                        </p:selectOneButton>
+                        <p:message for="n1" />
+
+
+                        <p:outputLabel for="n3" value="Serviço: " />
+                        <p:selectOneMenu id="n3" converter="omnifaces.SelectItemsConverter"
+                                         value="#{subSelectBean.tecnologia}" style="width: 150px;">
+                            <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
+                            <f:selectItems value="#{subSelectBean.listar()}" var="tecnologia"
+                                           itemLabel="#{tecnologia.nome}" itemValue="#{tecnologia}" />
+                            <p:ajax
+                                listener="#{subSelectBean.listarMotivos(subSelectBean.tecnologia)}"
+                                update="n2" />
+
+                        </p:selectOneMenu>
+                        <p:message for="n3" />
+
+
+                        <p:outputLabel for="n2" value="Motivo: " />
+                        <p:selectOneMenu id="n2" filter="true"
+                                         converter="omnifaces.SelectItemsConverter"
+                                         value="#{atendimentoBean.atendimento.motivo}"
+                                         filterMatchMode="contains" style="width: 100%;">
+                            <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
+                            <f:selectItems id="opcoes"
+                                           value="#{subSelectBean.tecnologia.motivos}" var="motivo"
+                                           itemLabel="#{motivo.nome}" itemValue="#{motivo}" />
+                        </p:selectOneMenu>
+                        <p:message for="n2" />
+
+
+                        <p:outputLabel for="nExterna" value="Demanda Externa: " />
+                        <p:selectOneMenu id="nExterna"
+                                         value="#{atendimentoBean.atendimento.demandaExterna}" style="width: 100%;">
+                            <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
+                            <f:selectItems
+                                value="#{atendimentoBean.myBooleanValues}" var="bool"
+                                itemLabel="#{bool.label}" itemValue="#{bool.value}" />
+                        </p:selectOneMenu>
+                        <p:message for="nExterna" />
+
+
+                        <p:outputLabel for="acesso" value="Sem Acesso: " />
+                        <p:selectOneMenu id="acesso"
+                                         value="#{atendimentoBean.atendimento.acesso}" style="width: 100%;">
+                            <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
+                            <f:selectItems
+                                value="#{atendimentoBean.myBooleanValues}" var="bool"
+                                itemLabel="#{bool.label}" itemValue="#{bool.value}" />
+                        </p:selectOneMenu>
+                        <p:message for="acesso" />
+
+
+                        <p:outputLabel for="ferramentas" value="Aderiu às ferramentas? " />
+                        <p:selectOneMenu id="ferramentas"
+                                         value="#{atendimentoBean.atendimento.ferramentas}" style="width: 100%;">
+                            <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
+                            <f:selectItems
+                                value="#{atendimentoBean.myBooleanValues}" var="bool"
+                                itemLabel="#{bool.label}" itemValue="#{bool.value}" />
+                        </p:selectOneMenu>
+                        <p:message for="ferramentas" />
+
+
+                        <p:outputLabel value="Observação: " />
+                        <p:inputTextarea id="observacao"
+                                         value="#{atendimentoBean.atendimento.observacao}" />
+                        <p:message for="observacao" />
+
+                        <h:inputHidden id="matricula"
+                                       value="#{atendimentoBean.atendimento.tecnico}" />
+
+
+                        <p:row></p:row>
+                        <p:row></p:row>
+                        <p:row>
+                            <p:column colspan="3">
+                                <p:commandButton action="#{atendimentoBean.finalizar()}"
+                                                 onclick="matricula('#{loginBean.usuario.login}');"
+                                                 update="@form" value="Finalizar!" />
+                            </p:column>
+                        </p:row>
+
+                    </h:panelGrid>
+
+                </p:fieldset>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
 
 </html>
 
