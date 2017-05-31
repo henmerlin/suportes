@@ -1,88 +1,73 @@
 package entidades;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Tecnologia{
+@Table(name = "SUPORTE_TECNOLOGIA")
+public class Tecnologia extends AbstractEntity {
 
-	@Id
-	@GeneratedValue
-	private Integer Id;
+    @NotEmpty
+    private String nome;
 
-	@NotEmpty
-	private String nome;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tecnologia")
+    private List<Motivo> motivos;
 
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="tecnologia")
-	private List<Motivo> motivos;
+    public Tecnologia() {
 
-	public Tecnologia() {
+    }
 
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public Integer getId() {
-		return Id;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setId(Integer id) {
-		Id = id;
-	}
+    public List<Motivo> getMotivos() {
+        return motivos;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public void setMotivos(List<Motivo> motivos) {
+        this.motivos = motivos;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
 
-	public List<Motivo> getMotivos() {
-		return motivos;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Tecnologia other = (Tecnologia) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
 
-
-	public void setMotivos(List<Motivo> motivos) {
-		this.motivos = motivos;
-	}
-
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Tecnologia other = (Tecnologia) obj;
-		if (Id == null) {
-			if (other.Id != null)
-				return false;
-		} else if (!Id.equals(other.Id))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Tecnologia [Id=" + Id + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "Tecnologia{" + "id=" + id + '}';
+    }
 
 }
-

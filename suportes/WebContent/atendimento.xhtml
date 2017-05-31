@@ -20,7 +20,7 @@
 
             <script>
 
-                $(document).ready(function() {
+                $(document).ready(function () {
 
                 });
 
@@ -34,9 +34,9 @@
                                 'login=' + login,
                         url: 'http://efika/web/services/colaborador/',
                         dataType: 'xml',
-                        success: function(xml) {
+                        success: function (xml) {
 
-                            $(xml).find('colaborador').each(function() {
+                            $(xml).find('colaborador').each(function () {
 
                                 var nome = $(this).find('nome').text();
 
@@ -59,9 +59,9 @@
                                 'login=' + login,
                         url: 'http://efika/web/services/colaborador/',
                         dataType: 'xml',
-                        success: function(xml) {
+                        success: function (xml) {
 
-                            $(xml).find('colaborador').each(function() {
+                            $(xml).find('colaborador').each(function () {
 
                                 var nome = $(this).find('nome').text();
                                 var cargo = $(this).find('cargo').text();
@@ -99,11 +99,11 @@
                                 'login=' + login,
                         url: 'http://efika/web/services/comandos/?max=5',
                         dataType: 'xml',
-                        success: function(xml) {
+                        success: function (xml) {
 
                             var comandos = [];
 
-                            $(xml).find('comando').each(function() {
+                            $(xml).find('comando').each(function () {
 
                                 var nome = $(this).attr('nome');
                                 var data = $(this).attr('data');
@@ -124,11 +124,11 @@
                                 "login=" + login,
                         url: 'http://efika/web/services/materiais/?max=5',
                         dataType: 'xml',
-                        success: function(xml) {
+                        success: function (xml) {
 
                             var comandos = [];
 
-                            $(xml).find('material').each(function() {
+                            $(xml).find('material').each(function () {
 
                                 var titulo = $(this).attr('titulo');
                                 var data = $(this).attr('data');
@@ -290,9 +290,8 @@
                         <p:selectOneMenu id="nExterna"
                                          value="#{atendimentoBean.atendimento.demandaExterna}" style="width: 100%;">
                             <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-                            <f:selectItems
-                                value="#{atendimentoBean.myBooleanValues}" var="bool"
-                                itemLabel="#{bool.label}" itemValue="#{bool.value}" />
+                            <f:selectItem itemValue="#{true}" itemLabel="Sim"/>
+                            <f:selectItem itemValue="#{false}" itemLabel="Não" />
                         </p:selectOneMenu>
                         <p:message for="nExterna" />
 
@@ -301,9 +300,8 @@
                         <p:selectOneMenu id="acesso"
                                          value="#{atendimentoBean.atendimento.acesso}" style="width: 100%;">
                             <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-                            <f:selectItems
-                                value="#{atendimentoBean.myBooleanValues}" var="bool"
-                                itemLabel="#{bool.label}" itemValue="#{bool.value}" />
+                            <f:selectItem itemValue="#{true}" itemLabel="Sim"/>
+                            <f:selectItem itemValue="#{false}" itemLabel="Não" />
                         </p:selectOneMenu>
                         <p:message for="acesso" />
 
@@ -312,9 +310,8 @@
                         <p:selectOneMenu id="ferramentas"
                                          value="#{atendimentoBean.atendimento.ferramentas}" style="width: 100%;">
                             <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-                            <f:selectItems
-                                value="#{atendimentoBean.myBooleanValues}" var="bool"
-                                itemLabel="#{bool.label}" itemValue="#{bool.value}" />
+                            <f:selectItem itemValue="#{true}" itemLabel="Sim"/>
+                            <f:selectItem itemValue="#{false}" itemLabel="Não" />
                         </p:selectOneMenu>
                         <p:message for="ferramentas" />
 

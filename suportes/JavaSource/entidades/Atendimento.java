@@ -1,21 +1,18 @@
 package entidades;
 
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Atendimento {
-
-    @Id
-    @GeneratedValue
-    private Integer Id;
+@Table(name = "SUPORTE_ATENDIMENTO")
+public class Atendimento extends AbstractEntity {
 
     private String tecnico;
 
@@ -56,20 +53,20 @@ public class Atendimento {
     public Atendimento() {
     }
 
-    public Boolean getDemandaExterna() {
-        return demandaExterna;
+    public String getTecnico() {
+        return tecnico;
     }
 
-    public void setDemandaExterna(Boolean demandaExterna) {
-        this.demandaExterna = demandaExterna;
+    public void setTecnico(String tecnico) {
+        this.tecnico = tecnico;
     }
 
-    public String getServico() {
-        return servico;
+    public String getColaborador() {
+        return colaborador;
     }
 
-    public void setServico(String servico) {
-        this.servico = servico;
+    public void setColaborador(String colaborador) {
+        this.colaborador = colaborador;
     }
 
     public String getAcompanhamento() {
@@ -96,12 +93,12 @@ public class Atendimento {
         this.ordem = ordem;
     }
 
-    public String getObservacao() {
-        return observacao;
+    public String getServico() {
+        return servico;
     }
 
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
+    public void setServico(String servico) {
+        this.servico = servico;
     }
 
     public Motivo getMotivo() {
@@ -112,28 +109,12 @@ public class Atendimento {
         this.motivo = motivo;
     }
 
-    public String getColaborador() {
-        return colaborador;
+    public String getObservacao() {
+        return observacao;
     }
 
-    public void setColaborador(String colaborador) {
-        this.colaborador = colaborador;
-    }
-
-    public Integer getId() {
-        return Id;
-    }
-
-    public void setId(Integer id) {
-        Id = id;
-    }
-
-    public String getTecnico() {
-        return tecnico;
-    }
-
-    public void setTecnico(String tecnico) {
-        this.tecnico = tecnico;
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     public Date getData() {
@@ -160,12 +141,19 @@ public class Atendimento {
         this.ferramentas = ferramentas;
     }
 
+    public Boolean getDemandaExterna() {
+        return demandaExterna;
+    }
+
+    public void setDemandaExterna(Boolean demandaExterna) {
+        this.demandaExterna = demandaExterna;
+    }
+
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((Id == null) ? 0 : Id.hashCode());
-        return result;
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        return hash;
     }
 
     @Override
@@ -179,12 +167,8 @@ public class Atendimento {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Atendimento other = (Atendimento) obj;
-        if (Id == null) {
-            if (other.Id != null) {
-                return false;
-            }
-        } else if (!Id.equals(other.Id)) {
+        final Atendimento other = (Atendimento) obj;
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
@@ -192,7 +176,14 @@ public class Atendimento {
 
     @Override
     public String toString() {
-        return "Atendimento [Id=" + Id + "]";
+        return "Atendimento{" + "id=" + id + '}';
     }
+
+ 
+    
+    
+    
+    
+    
 
 }

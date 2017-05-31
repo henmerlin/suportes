@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.model.SelectItem;
 import model.AtendimentoServico;
 import util.JSFUtil;
 
@@ -20,13 +19,6 @@ public class AtendimentoBean {
 
     public AtendimentoBean() {
         this.atendimento = new Atendimento();
-    }
-
-    public SelectItem[] getMyBooleanValues() {
-        return new SelectItem[]{
-            new SelectItem(Boolean.TRUE, "Sim"),
-            new SelectItem(Boolean.FALSE, "Não")
-        };
     }
 
     public Atendimento getAtendimento() {
