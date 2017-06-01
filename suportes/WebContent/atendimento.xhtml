@@ -261,7 +261,7 @@
 
                         <p:outputLabel for="n3" value="Serviço: " />
                         <p:selectOneMenu id="n3" converter="omnifaces.SelectItemsConverter"
-                                         value="#{subSelectBean.tecnologia}" style="width: 150px;">
+                                         value="#{subSelectBean.tecnologia}">
                             <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
                             <f:selectItems value="#{subSelectBean.listar()}" var="tecnologia"
                                            itemLabel="#{tecnologia.nome}" itemValue="#{tecnologia}" />
@@ -272,12 +272,11 @@
                         </p:selectOneMenu>
                         <p:message for="n3" />
 
-
                         <p:outputLabel for="n2" value="Motivo: " />
                         <p:selectOneMenu id="n2" filter="true"
                                          converter="omnifaces.SelectItemsConverter"
                                          value="#{atendimentoBean.atendimento.motivo}"
-                                         filterMatchMode="contains" style="width: 100%;">
+                                         filterMatchMode="contains">
                             <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
                             <f:selectItems id="opcoes"
                                            value="#{subSelectBean.tecnologia.motivos}" var="motivo"
@@ -285,35 +284,43 @@
                         </p:selectOneMenu>
                         <p:message for="n2" />
 
-
-                        <p:outputLabel for="nExterna" value="Demanda Externa: " />
-                        <p:selectOneMenu id="nExterna"
-                                         value="#{atendimentoBean.atendimento.demandaExterna}" style="width: 100%;">
-                            <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-                            <f:selectItem itemValue="#{true}" itemLabel="Sim"/>
-                            <f:selectItem itemValue="#{false}" itemLabel="Não" />
-                        </p:selectOneMenu>
-                        <p:message for="nExterna" />
-
-
-                        <p:outputLabel for="acesso" value="Sem Acesso: " />
-                        <p:selectOneMenu id="acesso"
-                                         value="#{atendimentoBean.atendimento.acesso}" style="width: 100%;">
-                            <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-                            <f:selectItem itemValue="#{true}" itemLabel="Sim"/>
-                            <f:selectItem itemValue="#{false}" itemLabel="Não" />
-                        </p:selectOneMenu>
-                        <p:message for="acesso" />
+                        <p:column/>
+                        <p:row>
+                            <p:column colspan="3">
+                                <p:fieldset id="causas" legend="Causas" toggleable="false">
+                                    <p:outputLabel for="nExterna" value="Demanda Externa: " />
+                                    <p:selectOneMenu id="nExterna"
+                                                     value="#{atendimentoBean.atendimento.demandaExterna}" style="width: 100%;">
+                                        <f:selectItem itemValue="#{null}" itemLabel=" - Selecione -" noSelectionOption="true" />
+                                        <f:selectItem itemValue="#{true}" itemLabel="Sim"/>
+                                        <f:selectItem itemValue="#{false}" itemLabel="Não" />
+                                    </p:selectOneMenu>
+                                    <p:message for="nExterna" />
 
 
-                        <p:outputLabel for="ferramentas" value="Aderiu às ferramentas? " />
-                        <p:selectOneMenu id="ferramentas"
-                                         value="#{atendimentoBean.atendimento.ferramentas}" style="width: 100%;">
-                            <f:selectItem itemLabel=" - Selecione -" noSelectionOption="true" />
-                            <f:selectItem itemValue="#{true}" itemLabel="Sim"/>
-                            <f:selectItem itemValue="#{false}" itemLabel="Não" />
-                        </p:selectOneMenu>
-                        <p:message for="ferramentas" />
+                                    <p:outputLabel for="acesso" value="Sem Acesso: " />
+                                    <p:selectOneMenu id="acesso"
+                                                     value="#{atendimentoBean.atendimento.acesso}" style="width: 100%;">
+                                        <f:selectItem itemValue="#{null}" itemLabel=" - Selecione -" noSelectionOption="true" />
+                                        <f:selectItem itemValue="#{true}" itemLabel="Sim"/>
+                                        <f:selectItem itemValue="#{false}" itemLabel="Não" />
+                                    </p:selectOneMenu>
+                                    <p:message for="acesso" />
+
+
+                                    <p:outputLabel for="ferramentas" value="Aderiu às ferramentas? " />
+                                    <p:selectOneMenu id="ferramentas"
+                                                     value="#{atendimentoBean.atendimento.ferramentas}" style="width: 100%;">
+                                        <f:selectItem itemValue="#{null}" itemLabel=" - Selecione -" noSelectionOption="true" />
+                                        <f:selectItem itemValue="#{true}" itemLabel="Sim"/>
+                                        <f:selectItem itemValue="#{false}" itemLabel="Não" />
+                                    </p:selectOneMenu>
+                                    <p:message for="ferramentas" />
+
+                                </p:fieldset>
+                            </p:column>
+                        </p:row>
+                        <p:column/>
 
 
                         <p:outputLabel value="Observação: " />

@@ -5,13 +5,12 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "SUPORTE_ATENDIMENTO")
 public class Atendimento extends AbstractEntity {
 
     private String tecnico;
@@ -39,6 +38,8 @@ public class Atendimento extends AbstractEntity {
     @Lob
     private String observacao;
 
+    
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date data;
 
     @NotNull

@@ -6,12 +6,10 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "SUPORTE_TECNOLOGIA")
 public class Tecnologia extends AbstractEntity {
 
     @NotEmpty

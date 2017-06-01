@@ -34,7 +34,7 @@ public class AtendimentoBean {
         try {
 
             this.servicoAtendimento.salvar(this.atendimento);
-            JSFUtil.addInfoMessage("Atendimento encerrado!");
+            JSFUtil.addInfoMessage("Atendimento cadastrado!");
             this.atendimento = new Atendimento();
 
         } catch (Exception e) {

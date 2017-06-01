@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "SUPORTE_MOTIVO")
 public class Motivo extends AbstractEntity {
 
     @NotEmpty
